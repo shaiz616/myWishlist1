@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Landing_Fragments.RegisFrag">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="sign up to make your wish a realty"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editTxtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:hint="name"
+        android:inputType="textPersonName"
+        android:text="shai"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editTxtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:text="qwe@gmail.con"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editTxtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:text="123"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="resetFields"
+        android:text="Reset" />
+
+    <Button
+        android:id="@+id/btnConfirmRegis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="confirmRegis"
+        android:text="confirm and continue" />
+
+</LinearLayout>
