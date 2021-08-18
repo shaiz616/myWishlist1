@@ -2,13 +2,30 @@ package com.example.wishmelist.Landing_Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.wishmelist.Activities.LandingActivity;
+import com.example.wishmelist.Classes.User;
 import com.example.wishmelist.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginFragment extends Fragment {
@@ -17,6 +34,15 @@ public class LoginFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private EditText editEmail;
+    private EditText editPassword;
+
+    private String email;
+    private String password;
+
+    private LandingActivity landing ;
+    private FirebaseAuth myAuth;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,12 +77,117 @@ public class LoginFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        myAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = myAuth.getCurrentUser();
+        if (currentUser != null) {
+            System.out.println(currentUser.toString());
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        editEmail = view.findViewById(R.id.editTextEmail);
+        editPassword = view.findViewById(R.id.editTextPW);
+        landing = (LandingActivity) getActivity();
+
+        Button btn = view.findViewById(R.id.loginBtn);
+        btn.setOnClickListener(v -> captureInput(view));
+
+/*        btn = view.findViewById(R.id.btnReset);
+        btn.setOnClickListener(v -> resetFields(view));*/
+
+        Button btn1 = view.findViewById(R.id.btnGuest);
+        btn1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                System.out.println("hello1");
+                landing.loginFunction();
+            }
+        });
+//        btn1.setOnClickListener(v -> landing.loginFunctoin());
+
+        return view;
+    }
+
+    public void captureInput(View view) {
+
+        if (editEmail.getText().toString().isEmpty()) {
+            System.out.println("mail is empty");
+        }else {
+            email = editEmail.getText().toString();
+        }
+
+        if(editPassword.getText().toString().isEmpty()) {
+            System.out.println("pw is empty");
+        } else {
+            password = editPassword.getText().toString();
+        }
+
+        System.out.println("hello2" + password);
+
+        loginFunc(email, password);
+
+    }
+
+    public void loginFunc(String email, String pw) {
+        myAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this.landing, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful() ) {
+                        System.out.println("login success");
+                        FirebaseUser user = myAuth.getCurrentUser();
+                        String uid = user.getUid();
+                        FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
+                        DatabaseReference myDBRef = fireDB.getReference("plain-user").child(uid);
+                        myDBRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User u = dataSnapshot.getValue(User.class);
+//                                   System.out.println("user name: " + u.getName());
+                                landing.user = u;
+                                landing.loginFunction();
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError dbErr) {
+                                Log.w("ERR", "failed to read value");
+                            }
+                        });
+
+                    } else {
+
+                        Log.w("TAG", "signInWithEmail:failure", task.getException());
+
+                        Toast.makeText(landing, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        System.out.println(" " + this);
+                    }
+                }
+            });
+    }
+
+//    public void
+
+
+    /*
+    TODO is there a better/ more efficent way ( right now there are 2 funcs in two diffrenet
+            frages- actitvities that do basically the same )
+     */
+    public void resetFields(View view) {
+        editEmail.setText("");
+        editPassword.setText("");
     }
 }
+
+
+
+

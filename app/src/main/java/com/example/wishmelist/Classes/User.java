@@ -9,6 +9,10 @@ public class User {
     private String email;
     private ArrayList<Giftlist> giftlists;
 
+    public User() {
+        //Default empty constructor
+    }
+
     public User(String name, String password, String email) {
         this.name = name;
         this.password = password;

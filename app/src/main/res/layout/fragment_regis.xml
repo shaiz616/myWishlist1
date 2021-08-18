@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Landing_Fragments.RegisFrag">
+    tools:context=".Landing_Fragments.RegisFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -21,7 +21,7 @@
         android:ems="20"
         android:hint="name"
         android:inputType="textPersonName"
-        android:text="shai"
+        android:text="dani"
         android:textSize="24sp" />
 
     <EditText
@@ -31,21 +31,21 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:text="qwe@gmail.con"
+        android:text="dani@gmail.com"
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editTxtPassword"
+        android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
-        android:text="123"
+        android:text="dan1"
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/btnSignup"
+        android:id="@+id/btnReset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="resetFields"
@@ -55,7 +55,6 @@
         android:id="@+id/btnConfirmRegis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="confirmRegis"
         android:text="confirm and continue" />
 
 </LinearLayout>
