@@ -23,4 +23,20 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="prompt_gift_name">enter wish name</string>
+    <string name="prompt_gift_link">enter a link to your wish</string>
+    <string name="prompt_an_img">upload an image for your wish</string>
+    <string name="make_another_wish">add one more wish to your wish-list</string>
+    <string name="addEvent">addEvent</string>
+    <string name="placeholder1"></string>
+    <string name="placeholder2"></string>
+
+    <string-array name="event_type_options">
+        <item>Event type</item>
+        <item>BirthDay</item>
+        <item>Wedding</item>
+        <item>Bar-Mitzvah</item>
+        <item>Other</item>
+    </string-array>
 </resources>

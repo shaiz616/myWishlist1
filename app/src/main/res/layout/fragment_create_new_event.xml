@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    tools:context=".CreateNewEventFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <!--
+ androidx.constraintlayout.widget.ConstraintLayout
+    change layout to constraint?
+    visuality of date picker: 'floating' above the rest of the views
+        ( covering them over) or in another frag that expand when the user
+        cho
+    -->
+
+    <!--        layout_centerHorizontal-->
+
+
+    <EditText
+        android:id="@+id/editTxtEventName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.1"
+        android:ems="10"
+        android:hint="give your speial day a special name"
+        android:inputType="textPersonName"
+        android:text="baby birthDay" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginVertical="20dp"
+        android:layout_weight="1.1"
+        android:gravity="center"
+        android:hint="Select date"
+        android:textSize="28dp"
+        tools:text="select a date" />
+
+    <TextView
+        android:id="@+id/labelForDropDown"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="10dp"
+        android:layout_weight="1.1"
+        android:gravity="center_vertical"
+        android:hint="drop down manu for event type"
+        android:labelFor="@id/spinner"
+        android:text="what are we celebrating?"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="451dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="75sp"
+
+        android:layout_weight="1.1" />
+
+    <TextView
+        android:id="@+id/tv4Address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="15dp"
+        android:layout_weight="1.1"
+        android:gravity="center_vertical"
+        android:labelFor="@id/etAddress"
+        android:text="location"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="192dp"
+        tools:layout_editor_absoluteY="171dp" />
+
+    <EditText
+        android:id="@+id/etAddress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="25dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="aloe - vera 23" />
+
+    <Button
+        android:id="@+id/createNewEventBTN"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginVertical="15dp"
+        android:layout_weight="1"
+        android:onClick="confirmEvent"
+        android:text="confirm and create your event"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="201dp" />
+
+
+</LinearLayout>

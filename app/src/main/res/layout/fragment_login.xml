@@ -17,8 +17,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_margin="5dp"
+            android:layout_height="450dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -47,10 +46,10 @@
                         android:layout_marginTop="10dp"
                         android:hint="@string/prompt_email"
                         android:inputType="textEmailAddress"
-                        android:text="dan1@gmail.com"
                         android:maxLines="1"
                         android:paddingStart="5dp"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:text="dani@gmail.com" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--                android.material.textfield.TextInputLayout-->
@@ -69,10 +68,10 @@
                         android:layout_marginTop="10dp"
                         android:hint="@string/prompt_password"
                         android:inputType="textPassword"
-                        android:text="dan1q1w2"
                         android:maxLines="1"
                         android:paddingStart="5dp"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:text="dan1q1w2" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +79,7 @@
                     android:id="@+id/loginBtn"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     android:background="@drawable/button_gradient"
                     android:text="@string/login"
                     android:textColor="@android:color/white"
@@ -90,7 +89,7 @@
                     android:id="@+id/btnGuest"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     android:background="@drawable/button_gradient"
                     android:text="guest"
                     android:textColor="@android:color/white"
@@ -102,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
+                    android:onClick="openSignup"
                     android:text="@string/create_new"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />

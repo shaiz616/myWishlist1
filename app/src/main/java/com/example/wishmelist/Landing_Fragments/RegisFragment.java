@@ -141,7 +141,7 @@ public class RegisFragment extends Fragment {
                             DatabaseReference myRef = db.getReference("plain-user").child(uid);
                             myRef.setValue(u);
                             Toast.makeText(landing, "Authentication ok", Toast.LENGTH_LONG).show();
-                            landing.loginFunction();
+                            landing.loginFunction(uid);
 //                            login();
 //                updateUI(user);
                         } else {
@@ -182,7 +182,7 @@ public class RegisFragment extends Fragment {
          if( validateInput(name, email, password) ) {
              System.out.println("line 182 all input is good");
              User u = new User(name, password, email);
-             landing.user = u;
+             landing.setUser(u);
              System.out.println("line 185 in regis: " + u.getName());
              signupFunc(u);
 //             landing.loginFuncton(view);
@@ -193,7 +193,7 @@ public class RegisFragment extends Fragment {
 
         String ptrn = "^(?=.*[a-zA-Z])(?=\\S+$)";
 //        boolean flag = validation(name, 4, ptrn);
-        if (!validation(name, 4, ptrn)) {
+        if (!validation(name, 6, ptrn)) {
             System.out.println( name + " is not good @line 195 ");
             return false;
         }

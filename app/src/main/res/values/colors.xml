@@ -12,4 +12,5 @@
     <color name="colorPrimaryDark">#76a5df</color>
     <color name="colorAccent">#ffff8800</color>
     <color name="zircon">#e0e6e4</color>
+    <color name="gray1">#a6a6a6</color>
 </resources>

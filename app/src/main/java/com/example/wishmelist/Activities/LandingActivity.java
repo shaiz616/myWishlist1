@@ -19,7 +19,7 @@ public class LandingActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
-    public static User user;
+    private static User user;
 
 
 
@@ -44,20 +44,29 @@ public class LandingActivity extends AppCompatActivity {
             to activiate the right response
             (for now display "anonimus" as username)
      */
-    public void loginFunction() {
+    public void loginFunction(String uid) {
         String username = "anonimus";
+        System.out.println("in landing activity line 49:  " + uid);
 
         if(user == null) {
             System.out.println("user is null");
         } else {
-            System.out.println("in landing activity line 42:  " + user.toString());
+            System.out.println("in landing activity line 53:  " + user.toString());
 
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("uid", uid);
             startActivity(intent);
         }
 
     }
 
+    public void setUser(User u) {
+        this.user = u;
+    }
+
+    public static User getUser() {
+        return user;
+    }
 
     public void openSignup(View view) {
 
@@ -82,8 +91,9 @@ public class LandingActivity extends AppCompatActivity {
         editPassword.setText("");
     }*/
 
-    public void doSomething(View view) {
-        System.out.println();
+    public void doSomething(String context, String msg) {
+
+        System.out.println("in " + context+ "activity. \n" +msg );
     }
 
 }

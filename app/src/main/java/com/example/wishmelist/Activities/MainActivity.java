@@ -1,30 +1,100 @@
 package com.example.wishmelist.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
+import com.example.wishmelist.Classes.EventDetails;
 import com.example.wishmelist.Classes.User;
+import com.example.wishmelist.CreateNewEventFragment;
+import com.example.wishmelist.EventListDisplayFragment;
 import com.example.wishmelist.R;
+import com.example.wishmelist.newEventFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String uid;
+
+    private EventDetails event;
     private User u;
+
     private LandingActivity landing ;
+
     private TextView welcomeTxtV;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+
+    FirebaseDatabase db;
+    DatabaseReference myDBRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        uid = getIntent().getStringExtra("uid");
+        System.out.println("    ****in main l/42 uid = " + uid);
 
-        u = landing.user;
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.mainFrame, new EventListDisplayFragment()).commit();
+        u = landing.getUser();
+        printLogFunc("main", "in onCreate: user = "+ u.toString() );
         /*
         TODO: need to check if user is null
          */
-        System.out.println("in main line 21" + u.getName());
         welcomeTxtV = findViewById(R.id.welcomeTxt);
         welcomeTxtV.setText("welcome " + u.getName());
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void createNewEvent(View view) {
+        System.out.println("create new event");
+//        CreateNewEventFragment newEvent = new CreateNewEventFragment();
+        switchFragment(new CreateNewEventFragment());
+
+    }
+
+    public void setEvent(EventDetails event) {
+        this.event = event;
+    }
+
+    public void openAddGiftInstance2EventFrag() {
+        System.out.println("add a gift");
+
+    }
+
+    public void switchFragment(Fragment newFragment) {
+
+        System.out.println("in main, line 63    **** open the fragment " + newFragment.toString());
+
+//        System.out.println(event.getAddress() +  "\n in main");
+
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.mainFrame, newFragment).commit();
+
+
+    }
+
+    /**
+     * Todo:    implamnt methods (when there will be something to retrieve)
+     */
+    public void printLogFunc(String context, String msg) {
+        System.out.println("in " + context+ " activity. \n\t\t" +msg );
+    }
+
+    public void retrieveGiftListOfEvent() {}
+
+    public void deleteEvent(String eventID) {
+        System.out.println("prepare to delete list \n\t\t" + eventID);
     }
 }

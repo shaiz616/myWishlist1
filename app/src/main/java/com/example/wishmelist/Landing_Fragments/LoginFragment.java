@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wishmelist.Activities.LandingActivity;
+import com.example.wishmelist.Classes.EventDetails;
 import com.example.wishmelist.Classes.User;
 import com.example.wishmelist.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 public class LoginFragment extends Fragment {
 
@@ -35,11 +39,10 @@ public class LoginFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private EditText editEmail;
-    private EditText editPassword;
+    private EditText editEmail, editPassword;
+    private TextView tvRegis;
 
-    private String email;
-    private String password;
+    private String email, password;
 
     private LandingActivity landing ;
     private FirebaseAuth myAuth;
@@ -110,7 +113,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("hello1");
-                landing.loginFunction();
+                landing.loginFunction("");
             }
         });
 //        btn1.setOnClickListener(v -> landing.loginFunctoin());
@@ -139,7 +142,7 @@ public class LoginFragment extends Fragment {
     }
 
     public void loginFunc(String email, String pw) {
-        myAuth.signInWithEmailAndPassword(email, password)
+        myAuth.signInWithEmailAndPassword(email, pw)
             .addOnCompleteListener(this.landing, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -147,21 +150,54 @@ public class LoginFragment extends Fragment {
                         System.out.println("login success");
                         FirebaseUser user = myAuth.getCurrentUser();
                         String uid = user.getUid();
+                        User u = new User();
+
                         FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
                         DatabaseReference myDBRef = fireDB.getReference("plain-user").child(uid);
                         myDBRef.addValueEventListener(new ValueEventListener() {
                             @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                u.setName(snapshot.child("name").getValue().toString());
+                                System.out.println("l161\t\t" + u.getName());
+                                landing.setUser(u);
+                                landing.loginFunction(uid);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.w("ERR", "failed to read value");
+
+                            }
+                        });
+                        System.out.println(u.getName());
+                        /*myDBRef.addValueEventListener(new ValueEventListener() {
+                            @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 User u = dataSnapshot.getValue(User.class);
-//                                   System.out.println("user name: " + u.getName());
-                                landing.user = u;
-                                landing.loginFunction();
+                                EventDetails event;
+                                Object child = dataSnapshot.child("event-list");
+                                landing.doSomething("login", "in loginfunc:\n\t\t" +u.getPassword());
+//                                System.out.println(" line 160)  " + dataSnapshot.child("event-list").getValue());
+                                /*for( DataSnapshot snap : dataSnapshot.child("event-list").getChildren()) {
+                                    System.out.println("line 162\n\t" + snap.child("eventDate/month").getValue().toString());
+                                    EventDetails.EventDate()
+                                    event = new EventDetails();
+                                }
+
+
+                                ArrayList<EventDetails> stats = dataSnapshot.getValue(User.class).getEventLists();
+                                /*for (EventDetails ED : stats) {
+                                    System.out.println("event type: " + ED.getEventType());
+                                }
+                                landing.setUser(u);
+                                landing.loginFunction(uid);
                             }
                             @Override
                             public void onCancelled(DatabaseError dbErr) {
                                 Log.w("ERR", "failed to read value");
                             }
-                        });
+                        });*/
 
                     } else {
 

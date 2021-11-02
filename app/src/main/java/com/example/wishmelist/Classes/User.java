@@ -7,7 +7,7 @@ public class User {
     private String name;
     private String password;
     private String email;
-    private ArrayList<Giftlist> giftlists;
+    private ArrayList<EventDetails> eventList;
 
     public User() {
         //Default empty constructor
@@ -43,12 +43,22 @@ public class User {
         this.email = email;
     }
 
-    public ArrayList<Giftlist> getGiftlists() {
-        return giftlists;
+    public ArrayList<EventDetails> getEventLists() {
+        return eventList;
     }
 
 
-    public void addGiftlist(Giftlist list) {
-        giftlists.add(list);
+    public void addEvent(EventDetails event) {
+        eventList.add(event);
+    }
+
+    @Override
+    public String toString() {
+        return  "User{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", eventList=" + eventList +
+                '}';
     }
 }
