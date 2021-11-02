@@ -13,6 +13,7 @@ import com.example.wishmelist.Classes.User;
 import com.example.wishmelist.Landing_Fragments.LoginFragment;
 import com.example.wishmelist.Landing_Fragments.RegisFragment;
 import com.example.wishmelist.R;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class LandingActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
 
     private static User user;
-
+    private FirebaseUser firebaseUser;
 
 
     @Override
@@ -44,7 +45,7 @@ public class LandingActivity extends AppCompatActivity {
             to activiate the right response
             (for now display "anonimus" as username)
      */
-    public void loginFunction(String uid) {
+    public void MoveToMainScreen(String uid) {
         String username = "anonimus";
         System.out.println("in landing activity line 49:  " + uid);
 
@@ -57,7 +58,6 @@ public class LandingActivity extends AppCompatActivity {
             intent.putExtra("uid", uid);
             startActivity(intent);
         }
-
     }
 
     public void setUser(User u) {

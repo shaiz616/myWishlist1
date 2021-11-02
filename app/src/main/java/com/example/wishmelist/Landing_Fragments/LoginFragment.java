@@ -1,5 +1,6 @@
 package com.example.wishmelist.Landing_Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -113,12 +114,40 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("hello1");
-                landing.loginFunction("");
+                LogAnonimously();
             }
         });
 //        btn1.setOnClickListener(v -> landing.loginFunctoin());
 
         return view;
+    }
+    public void LogAnonimously(){
+        myAuth.signInAnonymously().addOnCompleteListener(this.landing, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    String s = "";
+
+                    System.out.println("login anonymous successful");
+                    FirebaseUser user = myAuth.getCurrentUser();
+                    s = user.getUid();
+                    System.out.println(s);
+                    System.out.println("getting anonymous info user "+ user.getUid());
+                    landing.MoveToMainScreen(s);
+
+
+
+                }else {
+                    // If sign in fails, display a message to the user.
+                    System.out.println("signInAnonymously:failure" + task.getException());
+
+                    Toast.makeText(landing, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        });
     }
 
     public void captureInput(View view) {
@@ -149,6 +178,7 @@ public class LoginFragment extends Fragment {
                     if(task.isSuccessful() ) {
                         System.out.println("login success");
                         FirebaseUser user = myAuth.getCurrentUser();
+
                         String uid = user.getUid();
                         User u = new User();
 
@@ -160,7 +190,7 @@ public class LoginFragment extends Fragment {
                                 u.setName(snapshot.child("name").getValue().toString());
                                 System.out.println("l161\t\t" + u.getName());
                                 landing.setUser(u);
-                                landing.loginFunction(uid);
+                                landing.MoveToMainScreen(uid);
 
                             }
 
