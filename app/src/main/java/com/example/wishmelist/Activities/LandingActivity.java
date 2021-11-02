@@ -52,7 +52,7 @@ public class LandingActivity extends AppCompatActivity {
         if(user == null) {
             System.out.println("user is null");
         } else {
-            System.out.println("in landing activity line 53:  " + user.toString());
+            System.out.println("in landing activity line 55:  " + user.toString());
 
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("uid", uid);
