@@ -44,6 +44,7 @@ public class LandingActivity extends AppCompatActivity {
     TODO :  upon anonimus login send a signal to main
             to activiate the right response
             (for now display "anonimus" as username)
+            comment of dani
      */
     public void MoveToMainScreen(String uid) {
         String username = "anonimus";
