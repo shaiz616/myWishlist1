@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/tvDate"
-        android:layout_width="fill_parent"
+        android:layout_width="218dp"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="100dp"
         android:layout_marginVertical="20dp"
@@ -44,7 +44,7 @@
 
     <TextView
         android:id="@+id/labelForDropDown"
-        android:layout_width="match_parent"
+        android:layout_width="333dp"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="10dp"
@@ -59,7 +59,7 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="match_parent"
+        android:layout_width="272dp"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="75sp"
 
@@ -67,7 +67,7 @@
 
     <TextView
         android:id="@+id/tv4Address"
-        android:layout_width="match_parent"
+        android:layout_width="330dp"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="15dp"
@@ -81,13 +81,13 @@
 
     <EditText
         android:id="@+id/etAddress"
-        android:layout_width="match_parent"
+        android:layout_width="326dp"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="25dp"
         android:layout_weight="1"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="aloe - vera 23" />
+        android:text="address" />
 
     <Button
         android:id="@+id/createNewEventBTN"

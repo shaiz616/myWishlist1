@@ -135,8 +135,6 @@ public class LoginFragment extends Fragment {
                     System.out.println("getting anonymous info user "+ user.getUid());
                     landing.MoveToMainScreen(s);
 
-
-
                 }else {
                     // If sign in fails, display a message to the user.
                     System.out.println("signInAnonymously:failure" + task.getException());
