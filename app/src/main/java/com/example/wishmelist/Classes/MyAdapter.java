@@ -51,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 //        holder.txtView.setText(value[position]);
-        holder.txtView.setText(eventlists.get(position).getEventID()+ ",\n event type:" +eventlists.get(position).getEventType()  );
+        holder.txtView.setText("Event name: " + eventlists.get(position).getEventName()+"\nevent ID : "+ eventlists.get(position).getEventID());
         holder.deleteEvent.setOnClickListener(view -> {
             context.deleteEventFunc(eventlists.get(position).getEventID()   );
         });
