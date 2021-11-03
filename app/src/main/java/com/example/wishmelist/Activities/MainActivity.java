@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if(u == null) {
             u = new User();
         }
-        printLogFunc("main", "in onCreate: user = "+ u.toString() );
+        printLogFunc("main", "in onCreate: uid = "+ uid );
         /*
         TODO: need to check if user is null
          */

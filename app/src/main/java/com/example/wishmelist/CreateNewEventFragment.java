@@ -48,7 +48,7 @@ public class CreateNewEventFragment extends Fragment {
     private String[] eventOptions;
     private String address, eventType, eventDate, eventName, uid, eventId;
 //    private boolean flag;
-    private User user = new User();
+    private User user ;
 
     Button btnConfirm;
     EditText etAddress, etName;
@@ -95,7 +95,7 @@ public class CreateNewEventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_new_event, container, false);
         main = (MainActivity) getActivity();
         uid = main.getUid();
-        eventName = "birthday";
+//        eventName = "birthday";
 
         etAddress = view.findViewById(R.id.etAddress);
         etName = view.findViewById(R.id.editTxtEventName);
@@ -182,7 +182,7 @@ public class CreateNewEventFragment extends Fragment {
         eventName = etName.getText().toString();
         address = etAddress.getText().toString();
         if(eventName == null) {
-            popToast("wouldn't you like to have a meaning name?" +
+            popToast("wouldn't you like to have a meaningful name?" +
                     "\n please enter a name for your event");
             return false;
         }
@@ -234,7 +234,7 @@ public class CreateNewEventFragment extends Fragment {
 
                 user.setName(snapshot.child("name").getValue().toString());
 
-                System.out.println(user.getName());
+                System.out.println("aas" + user.getName());
                 createNewEvent();
 //                saveEvent2DB();
             }
@@ -270,7 +270,7 @@ public class CreateNewEventFragment extends Fragment {
 //        SimpleDateFormat pattern = new SimpleDateFormat("dd/mm/yy");
 //        EventDetails.EventDate date = new EventDetails.EventDate();
 
-        EventDetails newEvent = new EventDetails(eventType, eventName, date, address);
+        EventDetails newEvent = new EventDetails( eventName, eventType, date, address);
 
 //        user.addEvent(newEvent);
 //        System.out.println("uid ="  + FbUser.getUid() + ", name = " + FbUser);
@@ -279,13 +279,13 @@ public class CreateNewEventFragment extends Fragment {
 //        myDBRef.child(user.getUid()).child("event-list").setValue(event) ;
 
         newEvent.printEvent();
-//        saveEvent2DB(newEvent);
+        saveEvent2DB(newEvent);
     }
 
     public void saveEvent2DB(EventDetails event) {
 
 
-        myDBRef.addValueEventListener(new ValueEventListener() {
+        myDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -298,13 +298,16 @@ public class CreateNewEventFragment extends Fragment {
                 System.out.println("in create new event, line 270*** \n" + eventId);
                 main.setEvent(event);
                 main.switchFragment(new AddGift2EventGiftlistFragment());
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 System.out.println("***///      error: " + error.toString());
+
             }
         });
+
         System.out.println("problam? : " + event.getAddress());
 
     }

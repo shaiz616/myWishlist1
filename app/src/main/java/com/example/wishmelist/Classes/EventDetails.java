@@ -17,7 +17,7 @@ public class EventDetails {
     }
 
     public EventDetails(String name, String type, EventDate date, String address /*arrayList<Gift> */) {
-        this.eventType = name;
+        this.eventName = name;
         this.eventDate = date;
         this.address = address;
         this.eventType = type;
