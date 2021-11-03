@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LandingActivity.class);
         startActivity(intent);
-
-
     }
     public void createNewEvent(View view) {
         System.out.println("create new event");
