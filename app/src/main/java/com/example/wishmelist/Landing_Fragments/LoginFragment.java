@@ -126,7 +126,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    String s = "shaico";
+                    String s = "";
 
                     System.out.println("login anonymous successful");
                     FirebaseUser user = myAuth.getCurrentUser();

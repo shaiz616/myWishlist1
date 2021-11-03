@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.Classes.EventDetails;
@@ -20,6 +22,8 @@ import com.example.wishmelist.Classes.MyAdapter;
 import com.example.wishmelist.Classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +44,7 @@ public class EventListDisplayFragment extends Fragment {
     private ArrayList<EventDetails> userEventList;
 
 
-
+    FloatingActionButton fab;
     MainActivity main;
     RecyclerView recView;   MyAdapter adapter;
     ImageButton btn;
@@ -48,6 +52,7 @@ public class EventListDisplayFragment extends Fragment {
 
     FirebaseDatabase db;
     DatabaseReference myDbRef;
+    FirebaseAuth myAuth;
 
     public EventListDisplayFragment() {
         // Required empty public constructor
@@ -71,10 +76,9 @@ public class EventListDisplayFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         userEventList = new ArrayList<EventDetails>();
-//        uid = "asdf";
-//        for (int i=0; i < str.length; i++) {
-//            str[i] = "something " + i;
-//        }
+
+        myAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
@@ -84,7 +88,7 @@ public class EventListDisplayFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_list_display, container, false);
         main = (MainActivity) getActivity();
         uid = main.getUid();
-        user = new User();
+//        user = new User();
 //        EventDetails event1 = new EventDetails();
 
 //        System.out.println(userEventList);
@@ -92,11 +96,25 @@ public class EventListDisplayFragment extends Fragment {
 
 //        eventOptions = getResources().getStringArray(R.array.event_type_options);
 
+
+
         recView = view.findViewById(R.id.recyclerView);
 //        adapter = new MyAdapter(this.getActivity(),userEventList);
 
         db = FirebaseDatabase.getInstance();
         myDbRef = db.getReference("plain-user/"+ uid);
+
+        String uMail = myAuth.getCurrentUser().getEmail();
+        System.out.println("l105| umail = " + uMail);
+
+        if(uMail != null) {
+            /*
+            *dinamically create fab
+             * */
+            createFloatBtn(view);
+
+
+        }
 
         btn = view.findViewById(R.id.deleteEventBTN);
 
@@ -131,7 +149,7 @@ public class EventListDisplayFragment extends Fragment {
                     userEventList.add(event);
                 }
                 displayData(userEventList);
-                main.printLogFunc("display frag, l129", userEventList.size() + "" );
+                main.printLogFunc("display frag, l151", userEventList.size() + "" );
 
             }
 
@@ -140,6 +158,27 @@ public class EventListDisplayFragment extends Fragment {
                 Log.w("failed to read value", error.toException());
             }
         });
+    }
+
+    public void createFloatBtn(View view) {
+        fab = new FloatingActionButton(main);
+        fab.setId(View.generateViewId());
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.printLogFunc("display frag", "this is FABulous");
+                main.createNewEvent(view);
+            }
+        });
+
+        fab.setImageResource(R.drawable.button_gradient);
+
+        fab.setElevation(2);
+        fab.setFocusable(true);
+        LinearLayout lin = view.findViewById(R.id.eventListDisplayLayout);
+
+        lin.addView(fab );
+
     }
 
     public void displayData( ArrayList data) {

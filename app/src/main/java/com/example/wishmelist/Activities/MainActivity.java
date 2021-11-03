@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.mainFrame, new EventListDisplayFragment()).commit();
         u = landing.getUser();
+        if(u == null) {
+            u = new User();
+        }
         printLogFunc("main", "in onCreate: user = "+ u.toString() );
         /*
         TODO: need to check if user is null
