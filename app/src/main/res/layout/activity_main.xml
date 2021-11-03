@@ -8,25 +8,27 @@
     android:orientation="vertical"
     tools:context=".Activities.MainActivity">
 
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="10dp"
+        android:background="#FA1D1D"
+        android:backgroundTint="#DF1313"
+        android:onClick="logOut"
+        android:text="logout"
+        android:textColor="#000000" />
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:layout_gravity="center|center_horizontal"
         android:layout_weight="0.3"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="header"
-            android:textSize="28sp"
-            tools:layout_conversion_absoluteHeight="38dp"
-            tools:layout_editor_absoluteY="64dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_conversion_absoluteWidth="411dp" />
     </LinearLayout>
 
     <TextView
@@ -52,21 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.5">
 
-        <EditText
-            android:id="@+id/editTextTextPersonName2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Search List" />
     </FrameLayout>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:text="Button" />
 
 </LinearLayout>

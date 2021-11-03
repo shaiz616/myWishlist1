@@ -5,16 +5,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wishmelist.Classes.EventDetails;
 import com.example.wishmelist.Classes.User;
 import com.example.wishmelist.CreateNewEventFragment;
 import com.example.wishmelist.EventListDisplayFragment;
+import com.example.wishmelist.Landing_Fragments.LoginFragment;
 import com.example.wishmelist.R;
 import com.example.wishmelist.newEventFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView welcomeTxtV;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
+    private FirebaseAuth myAuth;
     FirebaseDatabase db;
     DatabaseReference myDBRef;
 
@@ -39,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         uid = getIntent().getStringExtra("uid");
-        System.out.println("    ****in main l/42 uid = " + uid);
 
+        myAuth = FirebaseAuth.getInstance();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.mainFrame, new EventListDisplayFragment()).commit();
@@ -54,12 +59,29 @@ public class MainActivity extends AppCompatActivity {
          */
         welcomeTxtV = findViewById(R.id.welcomeTxt);
         welcomeTxtV.setText("welcome " + u.getName());
+
+
+        Button btnLogOut = findViewById(R.id.btnLogOut);
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
+            }
+        });
     }
 
     public String getUid() {
         return uid;
     }
+    public void logOut(){
+        myAuth.signOut();
+        Toast.makeText(this, "success Log Out.",
+                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, LandingActivity.class);
+        startActivity(intent);
 
+
+    }
     public void createNewEvent(View view) {
         System.out.println("create new event");
 //        CreateNewEventFragment newEvent = new CreateNewEventFragment();

@@ -196,6 +196,7 @@ public class EventListDisplayFragment extends Fragment {
     }
 
     public void editEventFunc(String eventId, int position) {
+
         System.out.println("prepare to edit event" + eventId);
         myDbRef.child("event-list/" + eventId + "/event-name" ).setValue("my 45th birthDay");
 
