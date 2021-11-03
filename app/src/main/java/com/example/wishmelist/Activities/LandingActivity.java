@@ -55,10 +55,11 @@ public class LandingActivity extends AppCompatActivity {
         } else {
             System.out.println("in landing activity line 55:  " + user.toString());
 
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("uid", uid);
-            startActivity(intent);
+
         }
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("uid", uid);
+        startActivity(intent);
     }
 
     public void setUser(User u) {
