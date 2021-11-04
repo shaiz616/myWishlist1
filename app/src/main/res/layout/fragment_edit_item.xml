@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".editItem">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textViewNameItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="200dp"
+        android:text="Edit Item Name" />
+
+    <EditText
+        android:id="@+id/editTextNameItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="210dp"
+        android:ems="10"
+        android:hint="item name..."
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textViewLinkItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="280dp"
+        android:text="Edit Link" />
+
+    <EditText
+        android:id="@+id/EditTextLinkItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="300dp"
+        android:ems="10"
+        android:hint="link..."
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="370dp"
+        android:text="Save Changes" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="147dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="100dp"
+        android:text="Edit An Item "
+        android:textAlignment="center" />
+
+</FrameLayout>
