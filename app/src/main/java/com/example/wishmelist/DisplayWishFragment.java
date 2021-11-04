@@ -129,16 +129,16 @@ public class DisplayWishFragment extends Fragment {
 
                     System.out.println("key: " + snap.getKey() +"\n link :" +snap.child("link") );
                    GiftItem item = new GiftItem();
-                    item.setItemName(snap.getKey());
+                    item.setId(snap.getKey());
                     System.out.println("itemID1 = " + snap.getKey());
                     System.out.println("itemID2 = " + snap.child("link").getValue().toString());
 
 
-                    item.setItemName(snap.getKey());
+                    item.setItemName(snap.child("name").getValue().toString());
                     item.setLink(snap.child("link").getValue().toString());
 //                    item.setItemPrice(snap.child("price").getValue().toString());
                     // item.setId(snap.child("id").getValue().toString());
-                    item.setItemModel(snap.child("model").getValue().toString());
+//                    item.setItemModel(snap.child("model").getValue().toString());
 //                    System.out.println("in display l140, event name = " + snap.child("eventName").getValue().toString());
 
 /*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
@@ -170,9 +170,9 @@ public class DisplayWishFragment extends Fragment {
             recView.setLayoutManager(new LinearLayoutManager(main));
         }
 
-        public void deleteEventFunc (String itemId){
+        public void deleteItemFunc (String itemId){
             System.out.println("prepare to delete Item" + itemId);
-            myDbRef.child("event-list").child(itemId).removeValue();
+            myDbRef.child("wish-list").child(itemId).removeValue();
 
 
         }

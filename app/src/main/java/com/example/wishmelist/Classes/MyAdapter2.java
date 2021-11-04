@@ -24,7 +24,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
     ArrayList<GiftItem> giftItemArrayList;
 
     View view;
-    MainActivity main;
+//    MainActivity main;
     EventListDisplayFragment eventDisplay;
 
     public MyAdapter2(DisplayWishFragment contx, ArrayList<GiftItem> giftItemArrayList) {
@@ -38,7 +38,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
         LayoutInflater inflater = LayoutInflater.from(context.getContext());
         view = inflater.inflate(R.layout.rec_view_row, parent, false);
 
-        main = (MainActivity) parent.getContext();
+//        main = (MainActivity) parent.getContext();
 
 //        eventDisplay =(EventListDisplayFragment) getContext();
         return new MyViewHolder2(view);
@@ -50,7 +50,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 //        holder.txtView.setText(value[position]);
         holder.txtView.setText("item name: " + giftItemArrayList.get(position).getItemName() + "\nitem link : " + giftItemArrayList.get(position).getLink());
         holder.deleteEvent.setOnClickListener(view -> {
-            context.deleteEventFunc(giftItemArrayList.get(position).getLink());
+            context.deleteItemFunc(giftItemArrayList.get(position).getId());
         });
         holder.editEvent.setOnClickListener(view -> {
             System.out.println("your in MyAdapter no" + position);

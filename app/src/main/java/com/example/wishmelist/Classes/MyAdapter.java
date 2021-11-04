@@ -24,7 +24,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     ArrayList<EventDetails> eventlists;
 
     View view;
-    MainActivity main;
+//    MainActivity main;
     EventListDisplayFragment eventDisplay;
 
 
@@ -41,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context.getContext());
         view = inflater.inflate(R.layout.rec_view_row, parent, false);
 
-        main = (MainActivity)  parent.getContext();
+//        main = (MainActivity)  parent.getContext();
 
 //        eventDisplay =(EventListDisplayFragment) getContext();
         return new MyViewHolder(view);

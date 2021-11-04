@@ -7,15 +7,15 @@ public class GiftItem {
     private String itemModel;
     private String ItemId;
 
-    public GiftItem(String item, String link, String model, String ItemId) {
-        this.itemName = item;
+    public GiftItem(String name, String link, String model, String ItemId) {
+        this.itemName = name;
         this.link = link;
         this.itemModel = model;
         this.ItemId = ItemId;
     }
     public GiftItem(){}
-    public GiftItem(String item, String model, String ItemId) {
-        this.itemName = item;
+    public GiftItem(String name, String model, String ItemId) {
+        this.itemName = name;
         this.itemModel = model;
         this.ItemId = ItemId;
     }
@@ -32,7 +32,7 @@ public class GiftItem {
         return link;
     }
     public String getId(){return ItemId;};
-    public void setId(){this.ItemId= ItemId;};
+    public void setId(String ItemId){this.ItemId= ItemId;};
 
     public void setLink(String link) {
         this.link = link;
