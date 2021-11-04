@@ -4,17 +4,20 @@ public class GiftItem {
 
     private String itemName;
     private String link;
-    private int itemPrice;
+    private String itemPrice;
+    private String ItemId;
 
-    public GiftItem(String item, String link, int price) {
+    public GiftItem(String item, String link, String price, int ItemId) {
         this.itemName = item;
         this.link = link;
         this.itemPrice = price;
+        ItemId = ItemId;
     }
-
-    public GiftItem(String item, int price) {
+    public GiftItem(){}
+    public GiftItem(String item, String price, String ItemId) {
         this.itemName = item;
         this.itemPrice = price;
+        ItemId = ItemId;
     }
 
     public String getItemName() {
@@ -28,16 +31,18 @@ public class GiftItem {
     public String getLink() {
         return link;
     }
+    public String getId(){return ItemId;};
+    public void setId(){this.ItemId= ItemId;};
 
     public void setLink(String link) {
         this.link = link;
     }
 
-    public int getItemPrice() {
+    public String getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(int itemPrice) {
+    public void setItemPrice(String itemPrice) {
         this.itemPrice = itemPrice;
     }
 }

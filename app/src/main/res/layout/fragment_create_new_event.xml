@@ -27,8 +27,7 @@
         android:layout_weight="1.1"
         android:ems="10"
         android:hint="give your speial day a special name"
-        android:inputType="textPersonName"
-        android:text="baby birthDay" />
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -86,8 +85,8 @@
         android:layout_marginHorizontal="25dp"
         android:layout_weight="1"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="address" />
+        android:hint="address"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/createNewEventBTN"

@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="add a link to your wish"
+                android:hint="add a lik to the product"
                 android:inputType="" />
 
 
