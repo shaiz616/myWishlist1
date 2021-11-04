@@ -93,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
         this.event = event;
     }
 
+    public EventDetails getEvent() {
+        return event;
+    }
+
     public void openAddGiftInstance2EventFrag() {
         System.out.println("add a gift");
 

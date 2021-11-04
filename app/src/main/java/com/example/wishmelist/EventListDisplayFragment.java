@@ -126,26 +126,20 @@ public class EventListDisplayFragment extends Fragment {
 
 
     public void getData(View view) {
-        myDbRef.addValueEventListener(new ValueEventListener() {
+//        myDbRef = db.getReference("event-list");
+        myDbRef.child("eventIDList").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                System.out.println("read data");
-                for (DataSnapshot snap : snapshot.child("event-list").getChildren()) {
+                for (DataSnapshot snap : snapshot.getChildren()) {
 
-                    System.out.println();
                     EventDetails event = new EventDetails();
                     event.setEventID(snap.getKey());
-                    System.out.println("eventID1 = " + snap.getKey());
-                    System.out.println("eventID2 = " + snap.child( "eventType").getValue().toString() );
+                    event.setEventName(snap.getValue().toString());
+                    System.out.println("eventID1 = " + event.getEventName());
 
 
-
-
-                    event.setEventType(snap.child("eventType").getValue().toString());
-                    event.setAddress(snap.child("address").getValue().toString());
-                    event.setEventName(snap.child("eventName").getValue().toString());
-//                    System.out.println("in display l140, event name = " + snap.child("eventName").getValue().toString());
 
 
 /*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
@@ -168,6 +162,8 @@ public class EventListDisplayFragment extends Fragment {
             }
         });
     }
+
+
 
     public void createFloatBtn(View view) {
         fab = new FloatingActionButton(main);
@@ -207,8 +203,11 @@ public class EventListDisplayFragment extends Fragment {
     public void editEventFunc(String eventId, int position) {
 
         System.out.println("prepare to edit event" + eventId);
-        myDbRef.child("event-list/" + eventId + "/eventName" ).setValue("my 45th birthDay");
+//        myDbRef.child("event-list/" + eventId + "/eventName" ).setValue("my 45th birthDay");
 
+        EventDetails event = new EventDetails();
+        event.setEventID(eventId);
+        main.setEvent(event);
     }
 
 
