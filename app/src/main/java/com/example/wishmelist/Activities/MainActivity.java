@@ -38,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth myAuth;
     FirebaseDatabase db;
     DatabaseReference myDBRef;
-
+    public String strForDisplay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         uid = getIntent().getStringExtra("uid");
+
+        strForDisplay = "";
 
         myAuth = FirebaseAuth.getInstance();
         fragmentManager = getSupportFragmentManager();
@@ -94,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
     public void openAddGiftInstance2EventFrag() {
         System.out.println("add a gift");
 
+    }
+    public EventDetails getEvent(){
+        return event;
     }
 
     public void switchFragment(Fragment newFragment) {
