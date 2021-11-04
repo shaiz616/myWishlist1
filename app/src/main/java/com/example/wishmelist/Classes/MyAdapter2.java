@@ -11,24 +11,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wishmelist.Activities.MainActivity;
+import com.example.wishmelist.DisplayWishFragment;
 import com.example.wishmelist.EventListDisplayFragment;
 import com.example.wishmelist.R;
 
 import java.util.ArrayList;
 
-public class MyAdapter2 {
+public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 
 
-    EventListDisplayFragment context;
+    DisplayWishFragment context;
     ArrayList<GiftItem> giftItemArrayList;
 
     View view;
     MainActivity main;
     EventListDisplayFragment eventDisplay;
 
-    public MyAdapter2(EventListDisplayFragment contx, ArrayList<GiftItem> giftItemArrayList) {
-        context = contx;
-        giftItemArrayList = giftItemArrayList;
+    public MyAdapter2(DisplayWishFragment contx, ArrayList<GiftItem> giftItemArrayList) {
+        this.context = contx;
+        this.giftItemArrayList = giftItemArrayList;
     }
 
 

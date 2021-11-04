@@ -50,7 +50,7 @@ public class DisplayWishFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String uid, temp;
+    private String uid, eventId;
     private ArrayList<GiftItem> itemArrayList;
 
 
@@ -89,6 +89,8 @@ public class DisplayWishFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        itemArrayList = new ArrayList<GiftItem>();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -102,9 +104,10 @@ public class DisplayWishFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_list_display, container, false);
         main = (MainActivity) getActivity();
-        uid = main.getUid();
+//        uid = main.getUid();
+        eventId = main.getEvent().getEventID();
         db = FirebaseDatabase.getInstance();
-        myDbRef = db.getReference("plain-user/"+ uid);
+        myDbRef = db.getReference("event-list/"+eventId);
         recView = view.findViewById(R.id.recyclerView);
         myAuth.getCurrentUser();
         btn = view.findViewById(R.id.deleteEventBTN);
@@ -116,26 +119,27 @@ public class DisplayWishFragment extends Fragment {
     public void getData(View view) {
         boolean IsUserAnonymous = myAuth.getCurrentUser().isAnonymous();
         boolean IsUserRegular = myAuth.getCurrentUser().getEmail().isEmpty();
-        myDbRef.addValueEventListener(new ValueEventListener() {
+        myDbRef.child("wish-list").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                System.out.println("read data");
-                for (DataSnapshot snap : snapshot.child("event-list/"+  ).getChildren()) {
 
-                    System.out.println();
-                    GiftItem item = new GiftItem();
+                for (DataSnapshot snap : snapshot.getChildren()) {
+
+                    System.out.println("key: " + snap.getKey() +"\n link :" +snap.child("link") );
+                   GiftItem item = new GiftItem();
                     item.setItemName(snap.getKey());
                     System.out.println("itemID1 = " + snap.getKey());
-                    System.out.println("itemID2 = " + snap.child("eventType").getValue().toString());
+                    System.out.println("itemID2 = " + snap.child("link").getValue().toString());
 
 
                     item.setItemName(snap.getKey());
                     item.setLink(snap.child("link").getValue().toString());
-                    item.setItemPrice(snap.child("price").getValue().toString());
+//                    item.setItemPrice(snap.child("price").getValue().toString());
                     // item.setId(snap.child("id").getValue().toString());
+                    item.setItemModel(snap.child("model").getValue().toString());
 //                    System.out.println("in display l140, event name = " + snap.child("eventName").getValue().toString());
-
 
 /*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
                             Integer.parseInt(snap.child("eventDate/dayOfMonth").getValue().toString()),
@@ -182,7 +186,7 @@ public class DisplayWishFragment extends Fragment {
 
 
         public void checkResult (String value){
-            temp = value;
+            eventId = value;
             System.out.println("in display frag l176\n\t\t value = " + value);
         }
 

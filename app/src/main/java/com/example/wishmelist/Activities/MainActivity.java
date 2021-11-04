@@ -101,9 +101,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("add a gift");
 
     }
-    public EventDetails getEvent(){
-        return event;
-    }
+
 
     public void switchFragment(Fragment newFragment) {
 
