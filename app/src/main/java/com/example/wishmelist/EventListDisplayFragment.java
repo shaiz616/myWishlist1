@@ -132,12 +132,21 @@ public class EventListDisplayFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                System.out.println("read data");
                 for (DataSnapshot snap : snapshot.child("event-list").getChildren()) {
+
+                    System.out.println();
                     EventDetails event = new EventDetails();
-//                    event.setEventType(snap.child("eventType").getValue().toString());
-//                    event.setAddress(snap.child("address").getValue().toString());
-                    System.out.println("eventID1 = " + snap.getKey());;
                     event.setEventID(snap.getKey());
-                    System.out.println("eventID2 = " + event.getEventID());;
+                    System.out.println("eventID1 = " + snap.getKey());
+                    System.out.println("eventID2 = " + snap.child( "eventType").getValue().toString() );
+
+
+
+
+                    event.setEventType(snap.child("eventType").getValue().toString());
+                    event.setAddress(snap.child("address").getValue().toString());
+                    event.setEventName(snap.child("eventName").getValue().toString());
+//                    System.out.println("in display l140, event name = " + snap.child("eventName").getValue().toString());
+
 
 /*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
                             Integer.parseInt(snap.child("eventDate/dayOfMonth").getValue().toString()),
@@ -198,7 +207,7 @@ public class EventListDisplayFragment extends Fragment {
     public void editEventFunc(String eventId, int position) {
 
         System.out.println("prepare to edit event" + eventId);
-        myDbRef.child("event-list/" + eventId + "/event-name" ).setValue("my 45th birthDay");
+        myDbRef.child("event-list/" + eventId + "/eventName" ).setValue("my 45th birthDay");
 
     }
 

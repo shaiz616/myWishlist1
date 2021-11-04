@@ -95,6 +95,7 @@ public class CreateNewEventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_new_event, container, false);
         main = (MainActivity) getActivity();
         uid = main.getUid();
+        user = new User();
 //        eventName = "birthday";
 
         etAddress = view.findViewById(R.id.etAddress);
@@ -228,6 +229,7 @@ public class CreateNewEventFragment extends Fragment {
     public void retrieveUserData() {
 
 
+//        System.out.println("in create, uid = " + uid);
         myDBRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
