@@ -14,8 +14,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card1"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="366dp"
+        android:layout_height="176dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
@@ -39,7 +39,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:inputType="textPersonName"
-                android:text="@string/prompt_gift_name" />
+                android:text="Add Item Name" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="add a lik to the product"
+                android:hint="add link to product"
                 android:inputType="" />
 
 
@@ -91,23 +91,7 @@
         android:layout_marginTop="45dp"
         android:alpha=".5"
         app:cardCornerRadius="10dp"
-        app:cardElevation="1dp">
-        android:alpha="0.7">
-
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/card3"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_weight="1"
-        android:elevation="5dp"
-        android:text="would you like to add a wish?"
-        android:textSize="18sp" />
+        app:cardElevation="1dp"/>
 
     <Button
         android:id="@+id/addAWish"
