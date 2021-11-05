@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public void createNewEvent(View view) {
         System.out.println("create new event");
 //        CreateNewEventFragment newEvent = new CreateNewEventFragment();
-        switchFragment(new CreateNewEventFragment());
+        switchFragment(new CreateNewEventFragment(), "");
 
     }
 
@@ -103,13 +103,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void switchFragment(Fragment newFragment) {
+    public void switchFragment(Fragment newFragment, String objId) {
 
         System.out.println("in main, line 63    **** open the fragment " + newFragment.toString());
 
 //        System.out.println(event.getAddress() +  "\n in main");
+//        Intent intent = getIntent();
+//        String objectID = intent.getStringExtra("objID");
 
         fragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("objID", objId);
+        newFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.mainFrame, newFragment).commit();
 
 

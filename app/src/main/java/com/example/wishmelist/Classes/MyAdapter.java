@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,8 +58,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         });
         holder.editEvent.setOnClickListener(view ->{
             System.out.println("your in MyAdapter no"+ position);
-            context.editEventFunc(eventlists.get(position).getEventID(), position);
+            context.editEventFunc(eventlists.get(position).getEventID());
         });
+
+        holder.cardView.setOnClickListener(v -> context.go2WishList(eventlists.get(position).getEventID()));
+
     }
 
     @Override
@@ -70,6 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtView;
+        CardView cardView;
         ImageView deleteEvent, editEvent;
         EventListDisplayFragment eventDisplay;
 
@@ -78,6 +83,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             txtView = itemView.findViewById(R.id.recViewTarget);
             deleteEvent = view.findViewById(R.id.deleteEventBTN);
             editEvent = view.findViewById(R.id.editEventBTN);
+            cardView = view.findViewById(R.id.recycleCardView);
 //            eventDisplay = (EventListDisplayFragment) frag;
         }
     }

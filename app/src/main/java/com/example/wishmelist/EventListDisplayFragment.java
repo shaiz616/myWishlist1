@@ -1,5 +1,6 @@
 package com.example.wishmelist;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -176,6 +177,7 @@ public class EventListDisplayFragment extends Fragment {
             }
         });
 
+
         fab.setImageResource(R.drawable.button_gradient);
 
         fab.setElevation(2);
@@ -195,20 +197,31 @@ public class EventListDisplayFragment extends Fragment {
 
     public void deleteEventFunc(String eventId) {
         System.out.println("prepare to delete event" + eventId);
-        myDbRef.child("event-list").child(eventId).removeValue();
+//        myDbRef.child("event-list").child(eventId).removeValue();
 
 
     }
 
-    public void editEventFunc(String eventId, int position) {
+    public void editEventFunc(String eventId) {
 
         System.out.println("prepare to edit event" + eventId);
 //        myDbRef.child("event-list/" + eventId + "/eventName" ).setValue("my 45th birthDay");
 
-        EventDetails event = new EventDetails();
-        event.setEventID(eventId);
-        main.setEvent(event);
-        main.switchFragment(new DisplayWishFragment());
+//        EventDetails event = new EventDetails();
+//        event.setEventID(eventId);
+//        main.setEvent(event);
+//        main.switchFragment(new DisplayWishFragment(), eventId);
+
+    }
+
+    public void go2WishList(String eventId) {
+        System.out.println("prepare to display wishlist of event " + eventId);
+        /*Intent intent = new Intent(getActivity().getBaseContext(),
+                MainActivity.class);
+        intent.putExtra("objID", eventId);
+        getActivity().startActivity(intent);
+        main.switchFragment(new DisplayWishFragment(), eventId);
+        */
 
     }
 

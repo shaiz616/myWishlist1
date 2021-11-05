@@ -44,7 +44,7 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/saveItemEditBTN"
         android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="150dp"

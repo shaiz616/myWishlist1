@@ -1,5 +1,6 @@
 package com.example.wishmelist;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -177,10 +178,19 @@ public class DisplayWishFragment extends Fragment {
 
         }
 
-        public void editEventFunc (String eventId,int position){
+        public void editItemFunc (String eventId,int position){
 
             System.out.println("prepare to edit event" + eventId);
-            main.switchFragment(new AddGift2EventGiftlistFragment());
+            Intent intent = new Intent(getActivity().getBaseContext(),
+                    MainActivity.class);
+            intent.putExtra("objID", eventId);
+            getActivity().startActivity(intent);
+            main.switchFragment(new editItem() , eventId);
+
+        }
+
+        public void addItemFunc() {
+            main.switchFragment(new AddGift2EventGiftlistFragment(), "");
 
         }
 

@@ -61,7 +61,7 @@ public class CreateNewEventFragment extends Fragment {
 
     FirebaseAuth myAuth;
     FirebaseDatabase fireDB;
-    DatabaseReference myDBRef, eventListRef;
+    DatabaseReference dbUserRef, eventListRef;
 
     MainActivity main;
 
@@ -105,9 +105,9 @@ public class CreateNewEventFragment extends Fragment {
         spnr = view.findViewById(R.id.spinner);
         myAuth = FirebaseAuth.getInstance();
         fireDB = FirebaseDatabase.getInstance();
-        myDBRef = fireDB.getReference("plain-user");
+        dbUserRef = fireDB.getReference("plain-user/"+uid);
 
-        System.out.println("print DB: " + myDBRef.toString());
+        System.out.println("print userRef: " + dbUserRef.toString());
 
 //        retrieveUserData();
 //        System.out.println(user.getPassword());
@@ -230,7 +230,7 @@ public class CreateNewEventFragment extends Fragment {
 
 
 //        System.out.println("in create, uid = " + uid);
-        myDBRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -285,21 +285,26 @@ public class CreateNewEventFragment extends Fragment {
     }
 
     public void saveEvent2DB(EventDetails event) {
+//        dbUserRef = fireDB.getReference("plain-user/"+uid);
 
-
-        myDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        eventListRef = fireDB.getReference("event-list");
+        eventListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                eventId = myDBRef.child(uid).push().getKey();
-                eventListRef = fireDB.getReference("plain-user/"+uid + "/event-list");
+                eventId = eventListRef.push().getKey();
+                event.setEventID(eventId);
+
+//                eventListRef = fireDB.getReference("plain-user/"+uid + "/event-list");
 
 //                uid = myDBRef.child(myAuth.getCurrentUser().getUid().getValue().toString(),)
-                myDBRef.child(uid).child("event-list/"+eventId).setValue(event);
+                eventListRef.child(eventId).setValue(event);
 
-                System.out.println("in create new event, line 270*** \n" + eventId);
+                System.out.println("in create new event, line 303\n" +
+                        "************************ \n eventid = " + eventId);
+                dbUserRef.child("eventIDList").child(eventId).setValue(event.getEventName());
                 main.setEvent(event);
-                main.switchFragment(new AddGift2EventGiftlistFragment());
+                main.switchFragment(new AddGift2EventGiftlistFragment(), eventId);
 
             }
 
