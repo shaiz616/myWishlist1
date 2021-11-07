@@ -61,5 +61,7 @@ public class Edit_EventFragment extends Fragment {
         return view;
     }
 
-    public void
+    public void retriveChanges(){
+
+    }
 }
