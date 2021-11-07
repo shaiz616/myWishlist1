@@ -23,12 +23,12 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSearchList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
-        android:text="Button" />
+        android:text="Search List" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

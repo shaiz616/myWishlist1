@@ -1,6 +1,5 @@
 package com.example.wishmelist.Classes;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.EventListDisplayFragment;
 import com.example.wishmelist.R;
 
@@ -80,7 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public MyViewHolder(@NonNull View itemView/*, Fragment frag*/) {
             super(itemView);
-            txtView = itemView.findViewById(R.id.recViewTarget);
+            txtView = itemView.findViewById(R.id.eventNameField);
             deleteEvent = view.findViewById(R.id.deleteEventBTN);
             editEvent = view.findViewById(R.id.editEventBTN);
             cardView = view.findViewById(R.id.recycleCardView);

@@ -7,10 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.DisplayWishFragment;
 import com.example.wishmelist.EventListDisplayFragment;
 import com.example.wishmelist.R;
@@ -70,7 +68,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 
         public MyViewHolder2(@NonNull View itemView/*, Fragment frag*/) {
             super(itemView);
-            txtView = itemView.findViewById(R.id.recViewTarget);
+            txtView = itemView.findViewById(R.id.eventNameField);
             deleteEvent = view.findViewById(R.id.deleteEventBTN);
             editEvent = view.findViewById(R.id.editEventBTN);
 //            eventDisplay = (EventListDisplayFragment) frag;
