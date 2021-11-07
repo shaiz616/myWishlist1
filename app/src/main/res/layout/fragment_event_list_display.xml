@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/eventListDisplayLayout"
+    android:id="@+id/wishListDisplayLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -22,6 +22,12 @@
         android:hint="Search For A List"
         android:inputType="textPersonName" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test text" />
+
     <Button
         android:id="@+id/btnSearchList"
         android:layout_width="match_parent"
@@ -31,7 +37,7 @@
         android:text="Search List" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerWishView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" >

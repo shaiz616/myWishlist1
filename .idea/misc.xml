@@ -13,12 +13,13 @@
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/activity_landing.xml" value="0.264" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/activity_register.xml" value="0.264" />
-        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_add_gift2_event_giftlist.xml" value="0.264" />
+        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/edit_event.xml" value="0.1" />
+        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_add_gift2_event_giftlist.xml" value="0.2" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_add_item_to_wish_list.xml" value="0.223731884057971" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_create_new_event.xml" value="0.264" />
-        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_display_wish.xml" value="0.1359375" />
+        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_display_wish.xml" value="0.31520223152022314" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_edit__event.xml" value="0.264" />
-        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_edit_item.xml" value="0.1" />
+        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_edit_item.xml" value="0.2" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_event_list_display.xml" value="0.264" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_login.xml" value="0.264" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_new_event.xml" value="0.259375" />

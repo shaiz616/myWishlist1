@@ -7,7 +7,7 @@
     tools:context=".DisplayWishFragment">
 
     <LinearLayout
-        android:id="@+id/eventListDisplayLayout"
+        android:id="@+id/wishListDisplayLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
@@ -17,7 +17,7 @@
         <!-- TODO: Update blank fragment layout -->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerWishView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" >

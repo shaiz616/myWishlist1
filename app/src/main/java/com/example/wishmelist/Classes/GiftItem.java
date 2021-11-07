@@ -5,13 +5,14 @@ public class GiftItem {
     private String itemName;
     private String link;
     private String itemModel;
+    private String itemPrice;
     private String ItemId;
 
-    public GiftItem(String name, String link, String model, String ItemId) {
+    public GiftItem(String name, String link, String model, String Price) {
         this.itemName = name;
         this.link = link;
         this.itemModel = model;
-        this.ItemId = ItemId;
+        this.itemPrice = Price;
     }
     public GiftItem(){}
     public GiftItem(String name, String model, String ItemId) {
@@ -44,5 +45,21 @@ public class GiftItem {
 
     public void setItemModel(String itemModel) {
         this.itemModel = itemModel;
+    }
+
+    public String getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(String itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public String getItemId() {
+        return ItemId;
+    }
+
+    public void setItemId(String itemId) {
+        ItemId = itemId;
     }
 }

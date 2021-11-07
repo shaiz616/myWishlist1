@@ -20,24 +20,12 @@
         android:text="logout"
         android:textColor="#000000" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_gravity="center|center_horizontal"
-        android:layout_weight="0.3"
-        android:gravity="center"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
     <TextView
         android:id="@+id/welcomeTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:gravity="center"
-        android:text="TextView" />
+        android:layout_weight="0"
+        android:gravity="center" />
 
     <!--    <EditText-->
     <!--        android:id="@+id/editTextEventID"-->

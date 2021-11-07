@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +17,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.wishmelist.Activities.MainActivity;
-import com.example.wishmelist.Classes.EventDetails;
 import com.example.wishmelist.Classes.GiftItem;
-import com.example.wishmelist.Classes.MyAdapter;
 import com.example.wishmelist.Classes.MyAdapter2;
 import com.example.wishmelist.Classes.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,26 +37,16 @@ import java.util.Collection;
  */
 public class DisplayWishFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-
-
-
-    private String mParam1;
-    private String mParam2;
 
     private String uid, eventId;
     private ArrayList<GiftItem> itemArrayList;
 
 
     MainActivity main;
-    RecyclerView recView;
+    RecyclerView recWishView;
     MyAdapter2 adapter;
     ImageButton btn;
+    FloatingActionButton fab;
     User user;
 
     FirebaseDatabase db;
@@ -69,33 +57,17 @@ public class DisplayWishFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DisplayWishFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static DisplayWishFragment newInstance(String param1, String param2) {
         DisplayWishFragment fragment = new DisplayWishFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemArrayList = new ArrayList<GiftItem>();
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        itemArrayList = new ArrayList<>();
 
         myAuth = FirebaseAuth.getInstance();
     }
@@ -103,21 +75,33 @@ public class DisplayWishFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_event_list_display, container, false);
+        View view = inflater.inflate(R.layout.fragment_display_wish, container, false);
         main = (MainActivity) getActivity();
 //        uid = main.getUid();
-        eventId = main.getEvent().getEventID();
+        eventId = getArguments().getString("objID");
         db = FirebaseDatabase.getInstance();
         myDbRef = db.getReference("event-list/"+eventId);
-        recView = view.findViewById(R.id.recyclerView);
+        recWishView = view.findViewById(R.id.recyclerWishView);
         myAuth.getCurrentUser();
-        btn = view.findViewById(R.id.deleteEventBTN);
-        getData(view);
+
+
+        String uMail = myAuth.getCurrentUser().getEmail();
+        System.out.println("l105| umail = " + uMail);
+
+        if(uMail != null) {
+            /*
+             *dinamically create fab
+             * */
+            createFloatBtn(view);
+        }
+
+        btn = view.findViewById(R.id.deleteBTN);
+        getWishData(view);
         return view;
     }
 
 
-    public void getData(View view) {
+    public void getWishData(View view) {
         boolean IsUserAnonymous = myAuth.getCurrentUser().isAnonymous();
         boolean IsUserRegular = myAuth.getCurrentUser().getEmail().isEmpty();
         myDbRef.child("wish-list").addValueEventListener(new ValueEventListener() {
@@ -135,12 +119,12 @@ public class DisplayWishFragment extends Fragment {
                     System.out.println("itemID2 = " + snap.child("link").getValue().toString());
 
 
-                    item.setItemName(snap.child("name").getValue().toString());
+                    item.setItemName(snap.child("itemName").getValue().toString());
                     item.setLink(snap.child("link").getValue().toString());
 //                    item.setItemPrice(snap.child("price").getValue().toString());
                     // item.setId(snap.child("id").getValue().toString());
 //                    item.setItemModel(snap.child("model").getValue().toString());
-//                    System.out.println("in display l140, event name = " + snap.child("eventName").getValue().toString());
+                    System.out.println("in display l116, event name = " + item.getItemName());
 
 /*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
                             Integer.parseInt(snap.child("eventDate/dayOfMonth").getValue().toString()),
@@ -151,8 +135,8 @@ public class DisplayWishFragment extends Fragment {
 //                    event.setEventDate(eDate);
                     itemArrayList.add(item);
                 }
-                displayData(itemArrayList);
-                main.printLogFunc("display frag, l151", itemArrayList.size() + "");
+                main.printLogFunc("display wish frag, l128", itemArrayList.size() + "");
+                displayWishData(itemArrayList);
 
             }
 
@@ -164,11 +148,35 @@ public class DisplayWishFragment extends Fragment {
     }
 
 
+    public void createFloatBtn(View view) {
+        fab = new FloatingActionButton(main);
+        fab.setId(View.generateViewId());
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.printLogFunc("display wish frag", "this is FABulous");
+                main.switchFragment(new AddGift2EventGiftlistFragment(), eventId);
+            }
+        });
 
-        public void displayData(ArrayList data){
+        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_input_add));
+
+        fab.setElevation(2);
+        fab.setFocusable(true);
+        LinearLayout lin = view.findViewById(R.id.wishListDisplayLayout);
+
+        lin.addView(fab );
+
+    }
+
+
+
+        public void displayWishData(ArrayList data){
             MyAdapter2 adapter = new MyAdapter2(this, data);
-            recView.setAdapter(adapter);
-            recView.setLayoutManager(new LinearLayoutManager(main));
+            recWishView.setAdapter(adapter);
+            System.out.println("123ass ," +this.toString());
+
+            recWishView.setLayoutManager(new LinearLayoutManager(main));
         }
 
         public void deleteItemFunc (String itemId){
@@ -181,7 +189,7 @@ public class DisplayWishFragment extends Fragment {
         public void editItemFunc (String eventId,int position){
 
             System.out.println("prepare to edit event" + eventId);
-            Intent intent = new Intent(getActivity().getBaseContext(),
+            Intent intent = new Intent(getActivity(),
                     MainActivity.class);
             intent.putExtra("objID", eventId);
             getActivity().startActivity(intent);
@@ -198,6 +206,10 @@ public class DisplayWishFragment extends Fragment {
         public void checkResult (String value){
             eventId = value;
             System.out.println("in display frag l176\n\t\t value = " + value);
+        }
+
+        public void createNewWish(View view) {
+
         }
 
     }

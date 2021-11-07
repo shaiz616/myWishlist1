@@ -47,13 +47,14 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
     public void onBindViewHolder(@NonNull MyAdapter2.MyViewHolder2 holder, int position) {
 //        holder.txtView.setText(value[position]);
         holder.txtView.setText("item name: " + giftItemArrayList.get(position).getItemName() + "\nitem link : " + giftItemArrayList.get(position).getLink());
-        holder.deleteEvent.setOnClickListener(view -> {
+        holder.deleteItem.setOnClickListener(view -> {
             context.deleteItemFunc(giftItemArrayList.get(position).getId());
         });
-        holder.editEvent.setOnClickListener(view -> {
+        holder.editItem.setOnClickListener(view -> {
             System.out.println("your in MyAdapter no" + position);
             context.editItemFunc(giftItemArrayList.get(position).getLink(), position);
         });
+
     }
 
 
@@ -63,14 +64,14 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 
     public class MyViewHolder2 extends RecyclerView.ViewHolder {
         TextView txtView;
-        ImageView deleteEvent, editEvent;
+        ImageView deleteItem, editItem;
         EventListDisplayFragment eventDisplay;
 
         public MyViewHolder2(@NonNull View itemView/*, Fragment frag*/) {
             super(itemView);
             txtView = itemView.findViewById(R.id.eventNameField);
-            deleteEvent = view.findViewById(R.id.deleteEventBTN);
-            editEvent = view.findViewById(R.id.editEventBTN);
+            deleteItem = view.findViewById(R.id.deleteBTN);
+            editItem = view.findViewById(R.id.editBTN);
 //            eventDisplay = (EventListDisplayFragment) frag;
         }
     }

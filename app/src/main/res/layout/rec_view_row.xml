@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/editEventBTN"
+                android:id="@+id/editBTN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -41,13 +41,13 @@
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
             <ImageButton
-                android:id="@+id/deleteEventBTN"
+                android:id="@+id/deleteBTN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editEventBTN"
+                app:layout_constraintTop_toBottomOf="@+id/editBTN"
                 app:srcCompat="@android:drawable/ic_menu_delete" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,17 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.Classes.EventDetails;
 import com.example.wishmelist.Classes.MyAdapter;
 import com.example.wishmelist.Classes.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +36,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class EventListDisplayFragment extends Fragment {
+
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
 //    private String[] str = new String[20];
     private String uid, temp;
@@ -61,15 +60,16 @@ public class EventListDisplayFragment extends Fragment {
     }
 
     /**
+     *
      * @return A new instance of fragment EventListDisplayFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static EventListDisplayFragment newInstance(String param1, String param2) {
         EventListDisplayFragment fragment = new EventListDisplayFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -100,7 +100,8 @@ public class EventListDisplayFragment extends Fragment {
 
 
 
-        recView = view.findViewById(R.id.recyclerView);
+
+        recView = view.findViewById(R.id.recyclerWishView);
 //        adapter = new MyAdapter(this.getActivity(),userEventList);
 
         db = FirebaseDatabase.getInstance();
@@ -114,11 +115,9 @@ public class EventListDisplayFragment extends Fragment {
             *dinamically create fab
              * */
             createFloatBtn(view);
-
-
         }
 
-        btn = view.findViewById(R.id.deleteEventBTN);
+        btn = view.findViewById(R.id.deleteBTN);
 
         getData(view);
         return view;
@@ -129,12 +128,15 @@ public class EventListDisplayFragment extends Fragment {
 
     public void getData(View view) {
 //        myDbRef = db.getReference("event-list");
+
+
         myDbRef.child("eventIDList").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                System.out.println("read data");
                 for (DataSnapshot snap : snapshot.getChildren()) {
+
 
                     EventDetails event = new EventDetails();
                     event.setEventID(snap.getKey());
@@ -154,7 +156,7 @@ public class EventListDisplayFragment extends Fragment {
                     userEventList.add(event);
                 }
                 displayData(userEventList);
-                main.printLogFunc("display frag, l151", userEventList.size() + "" );
+                main.printLogFunc("display frag, l165", userEventList.size() + "" );
 
             }
 
@@ -179,12 +181,10 @@ public class EventListDisplayFragment extends Fragment {
         });
 
         fab.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_input_add));
-//        fab.setImageResource(R.drawable.button_gradient);
-
 
         fab.setElevation(2);
         fab.setFocusable(true);
-        LinearLayout lin = view.findViewById(R.id.eventListDisplayLayout);
+        LinearLayout lin = view.findViewById(R.id.wishListDisplayLayout);
 
         lin.addView(fab );
 
@@ -212,19 +212,13 @@ public class EventListDisplayFragment extends Fragment {
 //        EventDetails event = new EventDetails();
 //        event.setEventID(eventId);
 //        main.setEvent(event);
-//        main.switchFragment(new DisplayWishFragment(), eventId);
+        main.switchFragment(new Edit_EventFragment(), eventId);
 
     }
 
     public void go2WishList(String eventId) {
         System.out.println("prepare to display wishlist of event " + eventId);
-        Intent intent = new Intent(getActivity().getBaseContext(),
-                MainActivity.class);
-        intent.putExtra("objID", eventId);
-        getActivity().startActivity(intent);
-        main.switchFragment(new Edit_EventFragment(), eventId);
-
-
+        main.switchFragment(new DisplayWishFragment(), eventId);
     }
 
 

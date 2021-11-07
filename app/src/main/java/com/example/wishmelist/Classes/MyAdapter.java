@@ -78,8 +78,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public MyViewHolder(@NonNull View itemView/*, Fragment frag*/) {
             super(itemView);
             txtView = itemView.findViewById(R.id.eventNameField);
-            deleteEvent = view.findViewById(R.id.deleteEventBTN);
-            editEvent = view.findViewById(R.id.editEventBTN);
+            deleteEvent = view.findViewById(R.id.deleteBTN);
+            editEvent = view.findViewById(R.id.editBTN);
             cardView = view.findViewById(R.id.recycleCardView);
 //            eventDisplay = (EventListDisplayFragment) frag;
         }

@@ -56,7 +56,7 @@ public class Edit_EventFragment extends Fragment {
         etAddress = view.findViewById(R.id.editEvent_etAddress);
 
         btn = view.findViewById(R.id.btnConfirmEditEvent);
-
+        btn.setOnClickListener(v -> retriveChanges());
 
         return view;
     }
