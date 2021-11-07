@@ -77,7 +77,7 @@ public class AddGift2EventGiftlistFragment extends Fragment {
 
 
     public void startFunction(View view, boolean flag) {
-        System.out.println("the flaf is " + flag);
+        System.out.println("the flag is " + flag);
         if(flag){
             System.out.println( ", so we will add another item");
         } else {

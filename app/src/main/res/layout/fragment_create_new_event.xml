@@ -58,11 +58,12 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="272dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="75sp"
 
-        android:layout_weight="1.1" />
+        android:layout_weight="0.5"
+        android:padding="25dp" />
 
     <TextView
         android:id="@+id/tv4Address"
@@ -86,7 +87,8 @@
         android:layout_weight="1"
         android:ems="10"
         android:hint="address"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textSize="22sp" />
 
     <Button
         android:id="@+id/createNewEventBTN"

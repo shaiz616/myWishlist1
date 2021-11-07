@@ -156,11 +156,6 @@ public class CreateNewEventFragment extends Fragment {
         };
 
 
-//        System.out.println("create new event: " + eventOptions[0]);
-//        recView = view.findViewById(R.id.dropDownTarget);
-
-//        recViewAdap = new RecViewAdap(main, eventOptions);
-
         btnConfirm = view.findViewById(R.id.createNewEventBTN);
 //        btnConfirm.setOnClickListener(v -> captureEventDetails(view));
         btnConfirm.setOnClickListener(new View.OnClickListener() {

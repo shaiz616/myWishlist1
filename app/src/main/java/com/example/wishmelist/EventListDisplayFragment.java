@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -177,8 +178,9 @@ public class EventListDisplayFragment extends Fragment {
             }
         });
 
+        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_input_add));
+//        fab.setImageResource(R.drawable.button_gradient);
 
-        fab.setImageResource(R.drawable.button_gradient);
 
         fab.setElevation(2);
         fab.setFocusable(true);
@@ -216,12 +218,12 @@ public class EventListDisplayFragment extends Fragment {
 
     public void go2WishList(String eventId) {
         System.out.println("prepare to display wishlist of event " + eventId);
-        /*Intent intent = new Intent(getActivity().getBaseContext(),
+        Intent intent = new Intent(getActivity().getBaseContext(),
                 MainActivity.class);
         intent.putExtra("objID", eventId);
         getActivity().startActivity(intent);
-        main.switchFragment(new DisplayWishFragment(), eventId);
-        */
+        main.switchFragment(new Edit_EventFragment(), eventId);
+
 
     }
 

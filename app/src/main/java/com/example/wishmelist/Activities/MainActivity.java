@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         uid = getIntent().getStringExtra("uid");
 
-        strForDisplay = "";
 
         myAuth = FirebaseAuth.getInstance();
         fragmentManager = getSupportFragmentManager();
@@ -67,15 +66,17 @@ public class MainActivity extends AppCompatActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logOut();
+                logOut(view);
             }
         });
     }
 
+
     public String getUid() {
         return uid;
     }
-    public void logOut(){
+
+    public void logOut(View view){
         myAuth.signOut();
         Toast.makeText(this, "success Log Out.",
                 Toast.LENGTH_SHORT).show();
