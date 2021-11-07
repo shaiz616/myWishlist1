@@ -37,6 +37,16 @@ import java.util.ArrayList;
  */
 public class DisplayWishFragment extends Fragment {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+
+
+    private String mParam1;
+    private String mParam2;
 
     private String uid, eventId;
     private ArrayList<GiftItem> itemArrayList;
@@ -69,6 +79,7 @@ public class DisplayWishFragment extends Fragment {
         super.onCreate(savedInstanceState);
         itemArrayList = new ArrayList<>();
 
+
         myAuth = FirebaseAuth.getInstance();
     }
 
@@ -80,15 +91,16 @@ public class DisplayWishFragment extends Fragment {
 //        uid = main.getUid();
         eventId = getArguments().getString("objID");
         db = FirebaseDatabase.getInstance();
-        myDbRef = db.getReference("event-list/"+eventId);
+        myDbRef = db.getReference("event-list/" + eventId);
         recWishView = view.findViewById(R.id.recyclerWishView);
+        myDbRef = db.getReference("event-list/" + eventId);
         myAuth.getCurrentUser();
 
 
         String uMail = myAuth.getCurrentUser().getEmail();
         System.out.println("l105| umail = " + uMail);
 
-        if(uMail != null) {
+        if (uMail != null) {
             /*
              *dinamically create fab
              * */
@@ -112,8 +124,8 @@ public class DisplayWishFragment extends Fragment {
 
                 for (DataSnapshot snap : snapshot.getChildren()) {
 
-                    System.out.println("key: " + snap.getKey() +"\n link :" +snap.child("link") );
-                   GiftItem item = new GiftItem();
+                    System.out.println("key: " + snap.getKey() + "\n link :" + snap.child("link"));
+                    GiftItem item = new GiftItem();
                     item.setId(snap.getKey());
                     System.out.println("itemID1 = " + snap.getKey());
                     System.out.println("itemID2 = " + snap.child("link").getValue().toString());
@@ -165,51 +177,60 @@ public class DisplayWishFragment extends Fragment {
         fab.setFocusable(true);
         LinearLayout lin = view.findViewById(R.id.wishListDisplayLayout);
 
-        lin.addView(fab );
+        lin.addView(fab);
 
     }
 
 
+    public void displayWishData(ArrayList data) {
+        MyAdapter2 adapter = new MyAdapter2(this, data);
+        recWishView.setAdapter(adapter);
+        System.out.println("123ass ," + this.toString());
 
-        public void displayWishData(ArrayList data){
-            MyAdapter2 adapter = new MyAdapter2(this, data);
-            recWishView.setAdapter(adapter);
-            System.out.println("123ass ," +this.toString());
-
-            recWishView.setLayoutManager(new LinearLayoutManager(main));
-        }
-
-        public void deleteItemFunc (String itemId){
-            System.out.println("prepare to delete Item" + itemId);
-            myDbRef.child("wish-list").child(itemId).removeValue();
+        recWishView.setLayoutManager(new LinearLayoutManager(main));
+    }
 
 
-        }
+    public void displayData(ArrayList data) {
+        MyAdapter2 adapter = new MyAdapter2(this, data);
+        recWishView.setAdapter(adapter);
+        recWishView.setLayoutManager(new LinearLayoutManager(main));
+    }
 
-        public void editItemFunc (String eventId,int position){
-
-            System.out.println("prepare to edit event" + eventId);
-            Intent intent = new Intent(getActivity(),
-                    MainActivity.class);
-            intent.putExtra("objID", eventId);
-            getActivity().startActivity(intent);
-            main.switchFragment(new editItem() , eventId);
-
-        }
-
-        public void addItemFunc() {
-            main.switchFragment(new AddGift2EventGiftlistFragment(), "");
-
-        }
+    public void deleteItemFunc(String itemId) {
+        System.out.println("prepare to delete Item" + itemId);
+        myDbRef.child("wish-list").child(itemId).removeValue();
 
 
-        public void checkResult (String value){
-            eventId = value;
-            System.out.println("in display frag l176\n\t\t value = " + value);
-        }
+        System.out.println("prepare to edit event" + eventId);
+        Intent intent = new Intent(getActivity(),
+                MainActivity.class);
+        intent.putExtra("objID", eventId);
+        getActivity().startActivity(intent);
+        main.switchFragment(new editItem(), eventId);
+    }
 
-        public void createNewWish(View view) {
 
-        }
+    public void editItemFunc(String eventId, int position) {
+
+        System.out.println("prepare to edit event" + eventId);
+        main.switchFragment(new editItem(), eventId);
 
     }
+
+    public void addItemFunc() {
+        main.switchFragment(new AddGift2EventGiftlistFragment(), "");
+
+    }
+
+
+    public void createNewWish(View view) {
+
+    }
+
+    public void checkResult(String value) {
+        eventId = value;
+        System.out.println("in display frag l176\n\t\t value = " + value);
+    }
+
+}

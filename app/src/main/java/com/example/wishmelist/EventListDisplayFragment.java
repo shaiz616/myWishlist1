@@ -15,6 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.Classes.EventDetails;
@@ -29,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,19 +49,23 @@ public class EventListDisplayFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 //    private String[] str = new String[20];
+    //    private String[] str = new String[20];
     private String uid, temp;
     private ArrayList<EventDetails> userEventList;
 
 
     FloatingActionButton fab;
     MainActivity main;
-    RecyclerView recView;   MyAdapter adapter;
+    RecyclerView recView;
+    MyAdapter adapter;
     ImageButton btn;
     User user;
 
     FirebaseDatabase db;
     DatabaseReference myDbRef;
     FirebaseAuth myAuth;
+    EditText inputSearchListByID;
+    Button btnSearchList;
 
     public EventListDisplayFragment() {
         // Required empty public constructor
@@ -88,6 +100,8 @@ public class EventListDisplayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_list_display, container, false);
+        inputSearchListByID = view.findViewById(R.id.editTextTextPersonName2);
+        btnSearchList = view.findViewById(R.id.btnSearchList);
         main = (MainActivity) getActivity();
         uid = main.getUid();
 //        user = new User();
@@ -105,25 +119,36 @@ public class EventListDisplayFragment extends Fragment {
 //        adapter = new MyAdapter(this.getActivity(),userEventList);
 
         db = FirebaseDatabase.getInstance();
-        myDbRef = db.getReference("plain-user/"+ uid);
+        myDbRef = db.getReference("plain-user/" + uid);
+
 
         String uMail = myAuth.getCurrentUser().getEmail();
         System.out.println("l105| umail = " + uMail);
 
-        if(uMail != null) {
+        if (uMail != null) {
             /*
-            *dinamically create fab
+             *dinamically create fab
              * */
             createFloatBtn(view);
         }
 
         btn = view.findViewById(R.id.deleteBTN);
 
+        btn = view.findViewById(R.id.deleteBTN);
+        btnSearchList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (inputSearchListByID.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), "Please fill the input",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    SearchWishList();
+                }
+            }
+        });
         getData(view);
         return view;
     }
-
-
 
 
     public void getData(View view) {
@@ -160,13 +185,12 @@ public class EventListDisplayFragment extends Fragment {
 
             }
 
-             @Override
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("failed to read value", error.toException());
             }
         });
     }
-
 
 
     public void createFloatBtn(View view) {
@@ -186,17 +210,16 @@ public class EventListDisplayFragment extends Fragment {
         fab.setFocusable(true);
         LinearLayout lin = view.findViewById(R.id.wishListDisplayLayout);
 
-        lin.addView(fab );
+        lin.addView(fab);
 
     }
 
-    public void displayData( ArrayList data) {
+    public void displayData(ArrayList data) {
         MyAdapter adapter = new MyAdapter(this, data);
 //        main.printLogFunc("display frag/141\n\t\t", this.toString()  + "\n\t\tend");
         recView.setAdapter(adapter);
         recView.setLayoutManager(new LinearLayoutManager(main));
     }
-
     public void deleteEventFunc(String eventId) {
         System.out.println("prepare to delete event" + eventId);
 //        myDbRef.child("event-list").child(eventId).removeValue();
@@ -221,6 +244,42 @@ public class EventListDisplayFragment extends Fragment {
         main.switchFragment(new DisplayWishFragment(), eventId);
     }
 
+    public void SearchWishList() {
+        String inputValue = inputSearchListByID.getText().toString().trim();
+        // regex
+        String ptrn = "^[a-zA-Z0-9-]*$";
+        System.out.println(inputValue + " val input");
+        db = FirebaseDatabase.getInstance();
+        Pattern p = Pattern.compile(ptrn);
+        Matcher m = p.matcher(inputValue);
+        if (m.matches()) {
+            myDbRef = db.getReference("event-list/" + inputValue);
+            myDbRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    System.out.println("in onDataChange");
+
+                    System.out.println("input val before if: " + inputValue);
+                    if (snapshot.getValue() != null && inputValue.contains(myDbRef.getKey())) {
+                        System.out.println(snapshot.getValue().toString() + "in iff");
+
+                        // switch to fragment of wishlist of the id
+                    } else {
+                        Toast.makeText(getActivity(), "Invalid Event ID",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    System.out.println("fail input");
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "Invalid Event ID",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     public void checkResult(String value) {
         temp = value;
@@ -228,8 +287,5 @@ public class EventListDisplayFragment extends Fragment {
     }
 
 
-
-
-
-
 }
+

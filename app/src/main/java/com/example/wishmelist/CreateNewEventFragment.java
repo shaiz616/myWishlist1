@@ -47,8 +47,8 @@ public class CreateNewEventFragment extends Fragment {
 
     private String[] eventOptions;
     private String address, eventType, eventDate, eventName, uid, eventId;
-//    private boolean flag;
-    private User user ;
+    //    private boolean flag;
+    private User user;
 
     Button btnConfirm;
     EditText etAddress, etName;
@@ -73,7 +73,6 @@ public class CreateNewEventFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-
      * @return A new instance of fragment CreateNewEventFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -105,7 +104,7 @@ public class CreateNewEventFragment extends Fragment {
         spnr = view.findViewById(R.id.spinner);
         myAuth = FirebaseAuth.getInstance();
         fireDB = FirebaseDatabase.getInstance();
-        dbUserRef = fireDB.getReference("plain-user/"+uid);
+        dbUserRef = fireDB.getReference("plain-user/" + uid);
 
         System.out.println("print userRef: " + dbUserRef.toString());
 
@@ -113,7 +112,7 @@ public class CreateNewEventFragment extends Fragment {
 //        System.out.println(user.getPassword());
 
         eventOptions = getResources().getStringArray(R.array.event_type_options);
-        spinerAdapt = new ArrayAdapter<String>( getActivity() , android.R.layout.simple_list_item_1, eventOptions);
+        spinerAdapt = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, eventOptions);
 
         spinerAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnr.setAdapter(spinerAdapt);
@@ -129,7 +128,6 @@ public class CreateNewEventFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 System.out.println("nothing selected");
-
             }
         });
 
@@ -147,14 +145,13 @@ public class CreateNewEventFragment extends Fragment {
         dateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month +1;
-                eventDate = dayOfMonth + "/" + month +"/" + year;
+                month = month + 1;
+                eventDate = dayOfMonth + "/" + month + "/" + year;
                 date = new EventDetails.EventDate(dayOfMonth, month, year);
 
-                System.out.println("create new event| l153\n\t\t" +  eventDate.toString());
+                System.out.println("create new event| l153\n\t\t" + eventDate.toString());
             }
         };
-
 
         btnConfirm = view.findViewById(R.id.createNewEventBTN);
 //        btnConfirm.setOnClickListener(v -> captureEventDetails(view));
@@ -163,7 +160,7 @@ public class CreateNewEventFragment extends Fragment {
             public void onClick(View v) {
 //                flag = validateEventDetails(view);
 //                System.out.println("line 135)   flag is " + flag);
-                if(validateEventDetails(view)) {
+                if (validateEventDetails(view)) {
                     System.out.println(" line 173/ \tevent name" + eventName);
                     retrieveUserData();
                 }
@@ -172,24 +169,23 @@ public class CreateNewEventFragment extends Fragment {
         return view;
     }
 
-
     public boolean validateEventDetails(View view) {
         System.out.println("is the input legit?");
         eventName = etName.getText().toString();
         address = etAddress.getText().toString();
-        if(eventName == null) {
+        if (eventName == null) {
             popToast("wouldn't you like to have a meaningful name?" +
                     "\n please enter a name for your event");
             return false;
         }
-        if(eventDate == null) {
+        if (eventDate == null) {
             popToast("can't create new event without date\nplease enter event date");
             return false;
-        } else if( eventType.equals("Event type")) {
+        } else if (eventType.equals("Event type")) {
             System.out.println(eventType);
             popToast("what are you celebrating?\nplease choose event type");
             return false;
-        }else if (address.isEmpty() || address.length() < 5) {
+        } else if (address.isEmpty() || address.length() < 5) {
             popToast("where to send your gift?\nplease provide an address");
             return false;
         } else {
@@ -214,7 +210,7 @@ public class CreateNewEventFragment extends Fragment {
         DatePickerDialog dialog = new DatePickerDialog(getActivity(),
                 android.R.style.Theme_WithActionBar,
                 dateListener,
-                yy,mm,dd);
+                yy, mm, dd);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         date = new EventDetails.EventDate(dd, mm, yy);
@@ -240,7 +236,6 @@ public class CreateNewEventFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
                 System.out.println(error.getDetails());
             }
-
         });
 
 /*        ChildEventListener childEventListener = new ChildEventListener() {
@@ -259,16 +254,13 @@ public class CreateNewEventFragment extends Fragment {
         };*/
     }
 
-    public void createNewEvent()  {
-
+    public void createNewEvent() {
         System.out.println("finish :" + user.getName());
-
         System.out.println("create new event instance " + date.toString());
 //        SimpleDateFormat pattern = new SimpleDateFormat("dd/mm/yy");
 //        EventDetails.EventDate date = new EventDetails.EventDate();
 
-        EventDetails newEvent = new EventDetails( eventName, eventType, date, address);
-
+        EventDetails newEvent = new EventDetails(eventName, eventType, date, address);
 //        user.addEvent(newEvent);
 //        System.out.println("uid ="  + FbUser.getUid() + ", name = " + FbUser);
 //        User user = new User(FbUser.);
@@ -305,19 +297,18 @@ public class CreateNewEventFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("***///      error: " + error.toString());
+                System.out.println("***///error: " + error.toString());
 
             }
         });
 
-        System.out.println("problam? : " + event.getAddress());
+        System.out.println("problem ? : " + event.getAddress());
 
     }
 
     public void popToast(String msg) {
-        Toast.makeText( getActivity(), msg, Toast.LENGTH_LONG ).show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
-
 
 
 }

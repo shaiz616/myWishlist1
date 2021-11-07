@@ -4,7 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17604166666666668" />
-        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/drawable/add_item_button.xml" value="0.1" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/drawable/button_gradient.xml" value="0.17604166666666668" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/drawable/edit_text_background.xml" value="0.17604166666666668" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/drawable/gradient.xml" value="0.17604166666666668" />
@@ -13,6 +12,7 @@
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/activity_landing.xml" value="0.264" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/activity_register.xml" value="0.264" />
+<<<<<<< HEAD
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/edit_event.xml" value="0.1" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_add_gift2_event_giftlist.xml" value="0.2" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_add_item_to_wish_list.xml" value="0.223731884057971" />
@@ -20,12 +20,34 @@
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_display_wish.xml" value="0.31520223152022314" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_edit__event.xml" value="0.264" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_edit_item.xml" value="0.2" />
+=======
+        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_add_gift2_event_giftlist.xml" value="0.264" />
+        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_create_new_event.xml" value="0.264" />
+>>>>>>> origin/main
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_event_list_display.xml" value="0.264" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_login.xml" value="0.264" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_new_event.xml" value="0.259375" />
         <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/fragment_regis.xml" value="0.264" />
-        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/rec_view_row.xml" value="0.2" />
-        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/My Files/documents/WISHMELIST/app/src/main/res/layout/rec_view_row.xml" value="0.152" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/drawable/button_gradient.xml" value="0.221875" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/drawable/edit_text_background.xml" value="0.221875" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/activity_landing.xml" value="0.3671875" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/edit_event.xml" value="0.3671875" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_add_gift2_event_giftlist.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_add_item_to_wish_list.xml" value="0.17350557244174267" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_create_new_event.xml" value="0.34375" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_display_wish.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_edit__event.xml" value="0.28177083333333336" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_edit_item.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_event_list_display.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_login.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_new_event.xml" value="0.34375" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/fragment_regis.xml" value="0.34375" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/rec_view_row.xml" value="0.34375" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/recycle_list_wish.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/res_anonymous_wishlist.xml" value="0.3671875" />
+        <entry key="..\:/Users/dani koskas/Desktop/wishlist/myWishlist1/app/src/main/res/layout/searchforlist.xml" value="0.2375" />
       </map>
     </option>
   </component>
