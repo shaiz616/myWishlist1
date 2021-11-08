@@ -263,6 +263,7 @@ public class EventListDisplayFragment extends Fragment {
                     if (snapshot.getValue() != null && inputValue.contains(myDbRef.getKey())) {
                         System.out.println(snapshot.getValue().toString() + "in iff");
 
+                        main.switchFragment(new DisplayWishFragment(), inputValue);
                         // switch to fragment of wishlist of the id
                     } else {
                         Toast.makeText(getActivity(), "Invalid Event ID",

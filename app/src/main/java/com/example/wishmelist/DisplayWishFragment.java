@@ -114,8 +114,6 @@ public class DisplayWishFragment extends Fragment {
 
 
     public void getWishData(View view) {
-        boolean IsUserAnonymous = myAuth.getCurrentUser().isAnonymous();
-        boolean IsUserRegular = myAuth.getCurrentUser().getEmail().isEmpty();
         myDbRef.child("wish-list").addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -191,11 +189,6 @@ public class DisplayWishFragment extends Fragment {
     }
 
 
-    public void displayData(ArrayList data) {
-        MyAdapter2 adapter = new MyAdapter2(this, data);
-        recWishView.setAdapter(adapter);
-        recWishView.setLayoutManager(new LinearLayoutManager(main));
-    }
 
     public void deleteItemFunc(String itemId) {
         System.out.println("prepare to delete Item" + itemId);
@@ -218,15 +211,6 @@ public class DisplayWishFragment extends Fragment {
 
     }
 
-    public void addItemFunc() {
-        main.switchFragment(new AddGift2EventGiftlistFragment(), "");
-
-    }
-
-
-    public void createNewWish(View view) {
-
-    }
 
     public void checkResult(String value) {
         eventId = value;

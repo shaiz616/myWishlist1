@@ -15,6 +15,7 @@ public class GiftItem {
         this.itemPrice = Price;
     }
     public GiftItem(){}
+
     public GiftItem(String name, String model, String ItemId) {
         this.itemName = name;
         this.itemModel = model;

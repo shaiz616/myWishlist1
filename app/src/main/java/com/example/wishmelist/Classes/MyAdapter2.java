@@ -46,7 +46,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 
     public void onBindViewHolder(@NonNull MyAdapter2.MyViewHolder2 holder, int position) {
 //        holder.txtView.setText(value[position]);
-        holder.txtView.setText("item name: " + giftItemArrayList.get(position).getItemName() + "\nitem link : " + giftItemArrayList.get(position).getLink());
+        holder.txtView.setText("item name: " + giftItemArrayList.get(position).getItemName() + "\nitem model : " + giftItemArrayList.get(position).getItemModel());
         holder.deleteItem.setOnClickListener(view -> {
             context.deleteItemFunc(giftItemArrayList.get(position).getId());
         });
