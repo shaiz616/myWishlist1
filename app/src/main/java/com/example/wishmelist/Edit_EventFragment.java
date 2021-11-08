@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.Classes.EventDetails;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +27,10 @@ public class Edit_EventFragment extends Fragment {
 
     Button btn;
     EventDetails event;
+    MainActivity main;
+
+    FirebaseDatabase db;
+    DatabaseReference dbMyRef;
 
 
     public Edit_EventFragment() {
@@ -52,6 +59,14 @@ public class Edit_EventFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_edit__event, container, false);
 
+        main = (MainActivity) getActivity();
+        event = new EventDetails();
+        eventId = main.getEvent().getEventID();
+
+        db = FirebaseDatabase.getInstance();
+        dbMyRef = db.getReference();
+
+
         etName = view.findViewById(R.id.editEvent_etName);
         etAddress = view.findViewById(R.id.editEvent_etAddress);
 
@@ -62,6 +77,30 @@ public class Edit_EventFragment extends Fragment {
     }
 
     public void retriveChanges(){
+
+        eventName = etName.getText().toString();
+        if (eventName.isEmpty()){
+            eventName = main.getEvent().getEventName();
+        }
+        eventAddress = etAddress.getText().toString();
+        if(eventAddress.isEmpty())
+            eventAddress = main.getEvent().getAddress();
+
+        event.setEventName(eventName);
+        event.setAddress(eventAddress);
+        event.setEventID(main.getEvent().getEventID());
+        event.setEventDate(main.getEvent().getEventDate());
+        event.setEventType(main.getEvent().getEventType());
+        main.setEvent(event);
+
+        saveChanges2DB(event);
+
+    }
+
+    public void saveChanges2DB(EventDetails event) {
+
+        dbMyRef.child( "event-list/"+ event.getEventID()).setValue(event);
+        dbMyRef.child("plain-user/" + main.getUid() + "/eventIDList/" + event.getEventID()).setValue(event.getEventName());
 
     }
 }

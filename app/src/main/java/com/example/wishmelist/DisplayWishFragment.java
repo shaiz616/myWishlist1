@@ -133,7 +133,7 @@ public class DisplayWishFragment extends Fragment {
                     item.setLink(snap.child("link").getValue().toString());
 //                    item.setItemPrice(snap.child("price").getValue().toString());
                     // item.setId(snap.child("id").getValue().toString());
-//                    item.setItemModel(snap.child("model").getValue().toString());
+                    item.setItemModel(snap.child("itemModel").getValue().toString());
                     System.out.println("in display l116, event name = " + item.getItemName());
 
 /*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
@@ -191,20 +191,19 @@ public class DisplayWishFragment extends Fragment {
 
 
     public void deleteItemFunc(String itemId) {
+        System.out.println("prepare to edit event" + eventId);
         System.out.println("prepare to delete Item" + itemId);
         myDbRef.child("wish-list").child(itemId).removeValue();
 
-
-        System.out.println("prepare to edit event" + eventId);
-
-        main.switchFragment(new editItem(), eventId);
+//        main.switchFragment(new editItem(), eventId);
     }
 
 
-    public void editItemFunc(String eventId, int position) {
+    public void editItemFunc(String itemId, int position) {
 
+        String path = eventId + " " + itemId;
         System.out.println("prepare to edit event" + eventId);
-        main.switchFragment(new editItem(), eventId);
+        main.switchFragment(new editItem(), path);
 
     }
 

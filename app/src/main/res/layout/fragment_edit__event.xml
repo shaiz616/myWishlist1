@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="10dp">
+    android:orientation="vertical">
 
 
     <TextView
@@ -17,7 +16,7 @@
         android:layout_marginTop="70dp"
         android:text="Edit Your Event"
         android:textAlignment="center"
-        android:textSize="28sp" />
+        android:textSize="22sp" />
 
 
     <TextView
@@ -26,12 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
         android:paddingHorizontal="18dp"
         android:text="Name of The Event"
         android:textAlignment="center"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
 
     <EditText
@@ -44,9 +43,9 @@
         android:gravity="start"
         android:hint="Edit Event Name"
         android:inputType="textPersonName"
-        android:paddingLeft="20sp"
+        android:paddingLeft="18sp"
         android:textAlignment="textStart"
-        android:textSize="26sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/editEvent_tvAddress"
@@ -54,39 +53,27 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
         android:paddingHorizontal="18dp"
         android:text="Address of the event"
         android:textAlignment="center"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
 
     <EditText
         android:id="@+id/editEvent_etAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start"
         android:layout_gravity="start"
-        android:textAlignment="textStart"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:paddingLeft="20sp"
+        android:gravity="start"
         android:hint="edit event address"
         android:inputType="textPersonName"
-        android:textSize="26sp" />
-
-    <Button
-        android:id="@+id/edit_event_date"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:drawableLeft="@android:drawable/ic_menu_my_calendar"
-        android:gravity="start"
-        android:paddingLeft="20dp"
-        android:text="pick a new date"
-        android:textSize="18sp" />
+        android:paddingLeft="20sp"
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
 
 
     <Button
@@ -94,10 +81,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:gravity="start"
         android:text="Save Changes"
         android:textAlignment="viewStart"
+        android:textSize="14sp"
         tools:layout_editor_absoluteX="131dp"
         tools:layout_editor_absoluteY="507dp" />
 

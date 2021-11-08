@@ -221,21 +221,42 @@ public class EventListDisplayFragment extends Fragment {
         recView.setLayoutManager(new LinearLayoutManager(main));
     }
     public void deleteEventFunc(String eventId) {
-        System.out.println("prepare to delete event" + eventId);
-//        myDbRef.child("event-list").child(eventId).removeValue();
+        myDbRef = db.getReference();
 
+        myDbRef.child("event-list").child(eventId).removeValue();
+        myDbRef.child("plain-user/" + uid + "/eventIDList/" + eventId).removeValue();
 
     }
 
     public void editEventFunc(String eventId) {
 
         System.out.println("prepare to edit event" + eventId);
-//        myDbRef.child("event-list/" + eventId + "/eventName" ).setValue("my 45th birthDay");
 
-//        EventDetails event = new EventDetails();
-//        event.setEventID(eventId);
-//        main.setEvent(event);
-        main.switchFragment(new Edit_EventFragment(), eventId);
+//        myDbRef.child("event-list/" + eventId + "/eventName" ).setValue("my 45th birthDay");
+        myDbRef = db.getReference("event-list/" + eventId);
+        myDbRef.addValueEventListener(new ValueEventListener(
+
+        ) {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snap) {
+
+                String address = snap.child("address").getValue().toString();
+                String name = snap.child("eventName").getValue().toString();
+                EventDetails event = new EventDetails();
+                event.setEventID(eventId);
+                event.setEventName(name);
+                event.setAddress(address);
+                main.setEvent(event);
+
+                main.switchFragment(new Edit_EventFragment(), eventId);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

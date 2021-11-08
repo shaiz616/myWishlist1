@@ -52,7 +52,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
         });
         holder.editItem.setOnClickListener(view -> {
             System.out.println("your in MyAdapter no" + position);
-            context.editItemFunc(giftItemArrayList.get(position).getLink(), position);
+            context.editItemFunc(giftItemArrayList.get(position).getItemId(), position);
         });
 
     }
