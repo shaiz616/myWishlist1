@@ -196,10 +196,7 @@ public class DisplayWishFragment extends Fragment {
 
 
         System.out.println("prepare to edit event" + eventId);
-        Intent intent = new Intent(getActivity(),
-                MainActivity.class);
-        intent.putExtra("objID", eventId);
-        getActivity().startActivity(intent);
+
         main.switchFragment(new editItem(), eventId);
     }
 
