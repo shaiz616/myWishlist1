@@ -141,7 +141,7 @@ public class RegisFragment extends Fragment {
                             DatabaseReference myRef = db.getReference("plain-user").child(uid);
                             myRef.setValue(u);
                             Toast.makeText(landing, "Authentication ok", Toast.LENGTH_LONG).show();
-                            landing.MoveToMainScreen(uid);
+                            landing.MoveToMainScreen();
 //                            login();
 //                updateUI(user);
                         } else {

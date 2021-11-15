@@ -48,8 +48,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:paddingStart="5dp"
-                        android:singleLine="true"
-                        android:text="dani@gmail.com" />
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <!--                android.material.textfield.TextInputLayout-->
@@ -70,8 +69,7 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:paddingStart="5dp"
-                        android:singleLine="true"
-                        android:text="dan1q1w2" />
+                        android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

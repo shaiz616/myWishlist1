@@ -1,6 +1,6 @@
 package com.example.wishmelist;
 
-import android.content.Intent;
+//import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,15 +17,15 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+//import android.widget.ImageButton;
+//import android.widget.LinearLayout;
+//import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.Classes.EventDetails;
 import com.example.wishmelist.Classes.MyAdapter;
-import com.example.wishmelist.Classes.User;
+//import com.example.wishmelist.Classes.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -48,18 +48,17 @@ public class EventListDisplayFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-//    private String[] str = new String[20];
-    //    private String[] str = new String[20];
-    private String uid, temp;
+
+    private String uid;
     private ArrayList<EventDetails> userEventList;
 
 
     FloatingActionButton fab;
     MainActivity main;
     RecyclerView recView;
-    MyAdapter adapter;
+//    MyAdapter adapter;
     ImageButton btn;
-    User user;
+//    User user;
 
     FirebaseDatabase db;
     DatabaseReference myDbRef;
@@ -89,7 +88,7 @@ public class EventListDisplayFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        userEventList = new ArrayList<EventDetails>();
+        userEventList = new ArrayList<>();
 
         myAuth = FirebaseAuth.getInstance();
 
@@ -104,10 +103,11 @@ public class EventListDisplayFragment extends Fragment {
         btnSearchList = view.findViewById(R.id.btnSearchList);
         main = (MainActivity) getActivity();
         uid = main.getUid();
+
 //        user = new User();
 //        EventDetails event1 = new EventDetails();
 
-//        System.out.println(userEventList);
+        System.out.println("in event display, l 110, uid = "+ uid + "\n" + userEventList);
 //        main.printLogFunc("event display frag/76 |||", event1.printEvent());
 
 //        eventOptions = getResources().getStringArray(R.array.event_type_options);
@@ -120,19 +120,23 @@ public class EventListDisplayFragment extends Fragment {
 
         db = FirebaseDatabase.getInstance();
         myDbRef = db.getReference("plain-user/" + uid);
+        String uMail;
 
+        if ( myAuth.getCurrentUser() != null) {
+            System.out.println("hello null");
+            uMail = myAuth.getCurrentUser().getEmail();
+            System.out.println("l105| umail = " + uMail);
 
-        String uMail = myAuth.getCurrentUser().getEmail();
-        System.out.println("l105| umail = " + uMail);
+        } else {
+            uMail = null;
+        }
 
         if (uMail != null) {
-            /*
-             *dinamically create fab
-             * */
+
             createFloatBtn(view);
         }
 
-        btn = view.findViewById(R.id.deleteBTN);
+//        btn = view.findViewById(R.id.deleteBTN);
 
         btn = view.findViewById(R.id.deleteBTN);
         btnSearchList.setOnClickListener(new View.OnClickListener() {
@@ -303,10 +307,6 @@ public class EventListDisplayFragment extends Fragment {
 
     }
 
-    public void checkResult(String value) {
-        temp = value;
-        System.out.println("in display frag l176\n\t\t value = " + value);
-    }
 
 
 }

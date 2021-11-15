@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private EditText editEmail, editPassword;
-    private TextView tvRegis;
+//    private TextView tvRegis;
 
     private String email, password;
 
@@ -117,7 +117,6 @@ public class LoginFragment extends Fragment {
                 LogAnonimously();
             }
         });
-//        btn1.setOnClickListener(v -> landing.loginFunctoin());
 
         return view;
     }
@@ -126,14 +125,15 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    String s = "";
+//                    String s = "";
 
                     System.out.println("login anonymous successful");
                     FirebaseUser user = myAuth.getCurrentUser();
-                    s = user.getUid();
-                    System.out.println(s);
-                    System.out.println("getting anonymous info user "+ user.getUid());
-                    landing.MoveToMainScreen(s);
+//                    s = user.getUid();
+//                    System.out.println(s);
+                    System.out.println("getting anonymous info user\n uid =  "+ user.getUid());
+                    landing.setUid(user.getUid());
+                    landing.MoveToMainScreen();
 
                 }else {
                     // If sign in fails, display a message to the user.
@@ -150,6 +150,20 @@ public class LoginFragment extends Fragment {
 
     public void captureInput(View view) {
 
+        if(checkInput(editEmail) && checkInput(editPassword)) {
+            email = retriveInput(editEmail);
+            password = retriveInput(editPassword);
+            loginFunc(email, password);
+
+        } else if (checkInput(editEmail)) {
+            System.out.println("ps is empty");
+            Log.d(this.getContext().toString(), "ps is empty");
+        } else {
+            System.out.println("mail is empty ");
+        }
+
+
+        /*
         if (editEmail.getText().toString().isEmpty()) {
             System.out.println("mail is empty");
         }else {
@@ -161,11 +175,16 @@ public class LoginFragment extends Fragment {
         } else {
             password = editPassword.getText().toString();
         }
+        loginFunc(email, password);*/
+    }
 
-        System.out.println("hello2" + password);
+    public boolean checkInput(EditText editText) {
 
-        loginFunc(email, password);
+        return !editText.getText().toString().isEmpty();
+    }
 
+    public String retriveInput(EditText et) {
+        return et.getText().toString();
     }
 
     public void loginFunc(String email, String pw) {
@@ -179,6 +198,7 @@ public class LoginFragment extends Fragment {
 
                         String uid = user.getUid();
                         User u = new User();
+                        landing.setUid(uid);
 
                         FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
                         DatabaseReference myDBRef = fireDB.getReference("plain-user").child(uid);
@@ -186,9 +206,10 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 u.setName(snapshot.child("name").getValue().toString());
-                                System.out.println("l161\t\t" + u.getName());
-                                landing.setUser(u);
-                                landing.MoveToMainScreen(uid);
+                                System.out.println("l185\t\t" + pw);
+//                                landing.setUser(u);
+                                landing.keepLoginData(email, pw, uid);
+                                landing.MoveToMainScreen();
 
                             }
 
