@@ -107,6 +107,9 @@ public class DisplayWishFragment extends Fragment {
             createFloatBtn(view);
         }
 
+        if (itemArrayList.size() != 0) {
+            itemArrayList.clear();
+        }
         btn = view.findViewById(R.id.deleteBTN);
         getWishData(view);
         return view;
@@ -181,7 +184,7 @@ public class DisplayWishFragment extends Fragment {
 
 
     public void displayWishData(ArrayList data) {
-        MyAdapter2 adapter = new MyAdapter2(this, data);
+        adapter = new MyAdapter2(this, data);
         recWishView.setAdapter(adapter);
         System.out.println("123ass ," + this.toString());
 

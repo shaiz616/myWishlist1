@@ -3,6 +3,7 @@ package com.example.wishmelist;
 //import android.content.Intent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentResolver;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,10 @@ import java.util.regex.Pattern;
  */
 public class EventListDisplayFragment extends Fragment {
 
+//    public static final String MIME_TYPE_CONTENT = "vnd.android.cursor.item/vnd.example.contact";
+    public boolean isUserRegister;
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -64,6 +69,10 @@ public class EventListDisplayFragment extends Fragment {
 //    User user;
 
     ClipboardManager clipboard;
+    ContentResolver myResolver;
+    ClipData clip;
+
+
     FirebaseDatabase db;
     DatabaseReference myDbRef;
     FirebaseAuth myAuth;
@@ -109,15 +118,7 @@ public class EventListDisplayFragment extends Fragment {
         uid = main.getUid();
 
         clipboard = (ClipboardManager) main.getSystemService(main.CLIPBOARD_SERVICE);
-
-//        user = new User();
-//        EventDetails event1 = new EventDetails();
-
-        System.out.println("in event display, l 110, uid = "+ uid + "\n" + userEventList);
-//        main.printLogFunc("event display frag/76 |||", event1.printEvent());
-
-//        eventOptions = getResources().getStringArray(R.array.event_type_options);
-
+        myResolver = main.getContentResolver();
 
 
         inputSearchListByID.setOnLongClickListener(v -> {
@@ -131,23 +132,18 @@ public class EventListDisplayFragment extends Fragment {
 
         db = FirebaseDatabase.getInstance();
         myDbRef = db.getReference("plain-user/" + uid);
-        String uMail;
+        String uMail = myAuth.getCurrentUser().getEmail();
 
-        if ( myAuth.getCurrentUser() != null) {
-            System.out.println("hello null");
-            uMail = myAuth.getCurrentUser().getEmail();
-            System.out.println("l105| umail = " + uMail);
+
+        if ( uMail != null) {
+            isUserRegister = true;
+            createFloatBtn(view);
 
         } else {
-            uMail = null;
+            isUserRegister = false;
+
         }
 
-        if (uMail != null) {
-
-            createFloatBtn(view);
-        }
-
-//        btn = view.findViewById(R.id.deleteBTN);
 
         btn = view.findViewById(R.id.deleteBTN);
         btnSearchList.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +157,12 @@ public class EventListDisplayFragment extends Fragment {
                 }
             }
         });
+
+
+        if(userEventList.size() != 0) {
+            System.out.println("in display l-163, event list length = " + userEventList.size());
+            userEventList.clear();
+        }
         getData(view);
         return view;
     }
@@ -215,7 +217,8 @@ public class EventListDisplayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 main.printLogFunc("display frag", "this is FABulous");
-                main.createNewEvent(view);
+//                main.createNewEvent(view);
+                main.switchFragment(new CreateNewEventFragment(), "");
             }
         });
 
@@ -231,7 +234,11 @@ public class EventListDisplayFragment extends Fragment {
 
     public void pasteDateFromClipBoard() {
         Toast.makeText(this.getActivity(), "prepare to eat paste 2", Toast.LENGTH_LONG).show();
-        String pasteData;
+        clip = clipboard.getPrimaryClip();
+        ClipData.Item item = clip.getItemAt(0);
+        String pasteData = item.getText().toString();
+        Toast.makeText(this.getActivity(), "prepare to eat paste 3\n" + pasteData, Toast.LENGTH_LONG).show();
+
     }
 
     public void displayData(ArrayList data) {
@@ -251,7 +258,7 @@ public class EventListDisplayFragment extends Fragment {
     public void shareEvent(String eventId) {
 //        Toast.makeText(this.getActivity(),"ID = " + eventId, Toast.LENGTH_LONG).show();
 
-        ClipData clip = ClipData.newPlainText("eventID", eventId);
+        clip = ClipData.newPlainText("eventID", eventId);
         clipboard.setPrimaryClip(clip);
 
 

@@ -21,6 +21,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
     DisplayWishFragment context;
     ArrayList<GiftItem> giftItemArrayList;
 
+
     View view;
 //    MainActivity main;
     EventListDisplayFragment eventDisplay;
