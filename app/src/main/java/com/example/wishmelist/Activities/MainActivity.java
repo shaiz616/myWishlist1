@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EventDetails event;
     private User u;
+    UserManager bossman;
 
     private LandingActivity landing ;
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         uid = getIntent().getStringExtra("uid");
 
         landing = new LandingActivity();
+
 
 
         myAuth = FirebaseAuth.getInstance();
@@ -118,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = getIntent();
 //        String objectID = intent.getStringExtra("objID");
 
-        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction = fragmentManager.beginTransaction().setReorderingAllowed(true)
+                .addToBackStack(null);
         Bundle bundle = new Bundle();
         bundle.putString("objID", objId);
         newFragment.setArguments(bundle);

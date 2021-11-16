@@ -22,12 +22,6 @@
         android:hint="Search For A List"
         android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="test text" />
-
     <Button
         android:id="@+id/btnSearchList"
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -48,17 +49,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        holder.txtView.setText(value[position]);
-        holder.txtView.setText("Event name: " + eventlists.get(position).getEventName()+"\nevent ID : "+ eventlists.get(position).getEventID());
+        String eventId = eventlists.get(position).getEventID();
+        holder.txtView.setText("Event name: " + eventlists.get(position).getEventName()+"\nevent ID : "+ eventId);
         holder.deleteEvent.setOnClickListener(view -> {
-            context.deleteEventFunc(eventlists.get(position).getEventID()   );
-        });
-        holder.editEvent.setOnClickListener(view ->{
-            System.out.println("your in MyAdapter no"+ position);
-            context.editEventFunc(eventlists.get(position).getEventID());
+            context.deleteEventFunc(eventId);
         });
 
-        holder.cardView.setOnClickListener(v -> context.go2WishList(eventlists.get(position).getEventID()));
+        holder.editEvent.setOnClickListener(view ->{
+            System.out.println("your in MyAdapter no"+ position);
+            context.editEventFunc(eventId);
+        });
+
+        holder.shareIV.setOnClickListener(view -> {
+//            Toast.makeText(context.getContext(),"ID = " + eventId, Toast.LENGTH_LONG).show();
+            System.out.println("ID = " + eventId);
+            context.shareEvent(eventId);
+        });
+
+        holder.cardView.setOnClickListener(v -> context.go2WishList(eventId));
 
     }
 
@@ -72,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         TextView txtView;
         CardView cardView;
-        ImageView deleteEvent, editEvent;
+        ImageView deleteEvent, editEvent, shareIV;
         EventListDisplayFragment eventDisplay;
 
         public MyViewHolder(@NonNull View itemView/*, Fragment frag*/) {
@@ -80,6 +88,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             txtView = itemView.findViewById(R.id.eventNameField);
             deleteEvent = view.findViewById(R.id.deleteBTN);
             editEvent = view.findViewById(R.id.editBTN);
+            shareIV = view.findViewById(R.id.imgBTNshare);
             cardView = view.findViewById(R.id.recycleCardView);
 //            eventDisplay = (EventListDisplayFragment) frag;
         }

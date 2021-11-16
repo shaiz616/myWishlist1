@@ -1,6 +1,8 @@
 package com.example.wishmelist;
 
 //import android.content.Intent;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,6 +51,7 @@ public class EventListDisplayFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
+
     private String uid;
     private ArrayList<EventDetails> userEventList;
 
@@ -56,10 +59,11 @@ public class EventListDisplayFragment extends Fragment {
     FloatingActionButton fab;
     MainActivity main;
     RecyclerView recView;
-//    MyAdapter adapter;
+    MyAdapter adapter;
     ImageButton btn;
 //    User user;
 
+    ClipboardManager clipboard;
     FirebaseDatabase db;
     DatabaseReference myDbRef;
     FirebaseAuth myAuth;
@@ -104,6 +108,8 @@ public class EventListDisplayFragment extends Fragment {
         main = (MainActivity) getActivity();
         uid = main.getUid();
 
+        clipboard = (ClipboardManager) main.getSystemService(main.CLIPBOARD_SERVICE);
+
 //        user = new User();
 //        EventDetails event1 = new EventDetails();
 
@@ -114,6 +120,11 @@ public class EventListDisplayFragment extends Fragment {
 
 
 
+        inputSearchListByID.setOnLongClickListener(v -> {
+            System.out.println("prepare to eat paste");
+            pasteDateFromClipBoard();
+            return false;
+        });
 
         recView = view.findViewById(R.id.recyclerWishView);
 //        adapter = new MyAdapter(this.getActivity(),userEventList);
@@ -218,8 +229,13 @@ public class EventListDisplayFragment extends Fragment {
 
     }
 
+    public void pasteDateFromClipBoard() {
+        Toast.makeText(this.getActivity(), "prepare to eat paste 2", Toast.LENGTH_LONG).show();
+        String pasteData;
+    }
+
     public void displayData(ArrayList data) {
-        MyAdapter adapter = new MyAdapter(this, data);
+        adapter = new MyAdapter(this, data);
 //        main.printLogFunc("display frag/141\n\t\t", this.toString()  + "\n\t\tend");
         recView.setAdapter(adapter);
         recView.setLayoutManager(new LinearLayoutManager(main));
@@ -229,6 +245,15 @@ public class EventListDisplayFragment extends Fragment {
 
         myDbRef.child("event-list").child(eventId).removeValue();
         myDbRef.child("plain-user/" + uid + "/eventIDList/" + eventId).removeValue();
+
+    }
+
+    public void shareEvent(String eventId) {
+//        Toast.makeText(this.getActivity(),"ID = " + eventId, Toast.LENGTH_LONG).show();
+
+        ClipData clip = ClipData.newPlainText("eventID", eventId);
+        clipboard.setPrimaryClip(clip);
+
 
     }
 
