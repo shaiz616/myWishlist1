@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:paddingHorizontal="10dp"
     tools:context=".CreateNewEventFragment">
 
@@ -22,85 +23,110 @@
 
     <EditText
         android:id="@+id/editTxtEventName"
-        android:layout_width="match_parent"
+        android:layout_width="392dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.1"
+        android:layout_marginBottom="10dp"
         android:ems="10"
-        android:hint="give your speial day a special name"
-        android:inputType="textPersonName" />
+        android:hint=" Event Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/tvDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <TextView
         android:id="@+id/tvDate"
-        android:layout_width="218dp"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginVertical="20dp"
-        android:layout_weight="1.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:hint="Select date"
+        android:hint="Date"
         android:textSize="28dp"
-        tools:text="select a date" />
+        app:layout_constraintBottom_toTopOf="@+id/labelForDropDown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtEventName"
+        tools:text="Date" />
 
     <TextView
         android:id="@+id/labelForDropDown"
-        android:layout_width="333dp"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"
-        android:layout_weight="1.1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
         android:gravity="center_vertical"
         android:hint="drop down manu for event type"
         android:labelFor="@id/spinner"
-        android:text="what are we celebrating?"
+        android:text="Type of Event"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="451dp" />
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="75sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        android:layout_weight="0.5"
-        android:padding="25dp" />
+        android:layout_marginBottom="5dp"
+        android:padding="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv4Address"
+        app:layout_constraintEnd_toEndOf="@+id/editTxtEventName"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintStart_toStartOf="@+id/editTxtEventName"
+        app:layout_constraintTop_toBottomOf="@+id/labelForDropDown" />
 
     <TextView
         android:id="@+id/tv4Address"
-        android:layout_width="330dp"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="15dp"
-        android:layout_weight="1.1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
         android:labelFor="@id/etAddress"
         android:text="location"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="192dp"
-        tools:layout_editor_absoluteY="171dp" />
+        app:layout_constraintBottom_toTopOf="@+id/etAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <EditText
         android:id="@+id/etAddress"
-        android:layout_width="326dp"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="25dp"
-        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
         android:ems="10"
         android:hint="address"
         android:inputType="textPersonName"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/createNewEventBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv4Address" />
 
     <Button
         android:id="@+id/createNewEventBTN"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginVertical="15dp"
-        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:onClick="confirmEvent"
-        android:text="confirm and create your event"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="201dp" />
+        android:text="Create  Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTxtEventName"
+        app:layout_constraintStart_toStartOf="@+id/editTxtEventName"
+        app:layout_constraintTop_toBottomOf="@+id/etAddress" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

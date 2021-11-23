@@ -1,5 +1,8 @@
 package com.example.wishmelist;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -48,7 +51,7 @@ public class DisplayWishFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String uid, eventId;
+    private String eventId;
     private ArrayList<GiftItem> itemArrayList;
 
 
@@ -56,8 +59,11 @@ public class DisplayWishFragment extends Fragment {
     RecyclerView recWishView;
     MyAdapter2 adapter;
     ImageButton btn;
-    FloatingActionButton fab;
-    User user;
+
+
+    ClipboardManager clipboard;
+    ContentResolver myResolver;
+    ClipData clip;
 
     FirebaseDatabase db;
     DatabaseReference myDbRef;
@@ -88,29 +94,30 @@ public class DisplayWishFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_display_wish, container, false);
         main = (MainActivity) getActivity();
-//        uid = main.getUid();
         eventId = getArguments().getString("objID");
         db = FirebaseDatabase.getInstance();
         myDbRef = db.getReference("event-list/" + eventId);
         recWishView = view.findViewById(R.id.recyclerWishView);
         myDbRef = db.getReference("event-list/" + eventId);
-        myAuth.getCurrentUser();
+
+        clipboard = (ClipboardManager) main.getSystemService(main.CLIPBOARD_SERVICE);
 
 
         String uMail = myAuth.getCurrentUser().getEmail();
-        System.out.println("l105| umail = " + uMail);
 
+
+        /**
+         *dynamically create fab
+         * */
         if (uMail != null) {
-            /*
-             *dinamically create fab
-             * */
-            createFloatBtn(view);
+            main.createFloatBtn(view, "from display wish frag, l-14", eventId, new AddGift2EventGiftlistFragment());
         }
 
         if (itemArrayList.size() != 0) {
             itemArrayList.clear();
         }
         btn = view.findViewById(R.id.deleteBTN);
+//        btn.setOnClickListener(v -> main.popupDialog(this, str, item));
         getWishData(view);
         return view;
     }
@@ -126,7 +133,11 @@ public class DisplayWishFragment extends Fragment {
                 for (DataSnapshot snap : snapshot.getChildren()) {
 
                     System.out.println("key: " + snap.getKey() + "\n link :" + snap.child("link"));
-                    GiftItem item = new GiftItem();
+
+                    GiftItem wish = snap.getValue(GiftItem.class);
+                    wish.setId(snap.getKey());
+
+/*                    GiftItem item = new GiftItem();
                     item.setId(snap.getKey());
                     System.out.println("itemID1 = " + snap.getKey());
                     System.out.println("itemID2 = " + snap.child("link").getValue().toString());
@@ -136,8 +147,8 @@ public class DisplayWishFragment extends Fragment {
                     item.setLink(snap.child("link").getValue().toString());
 //                    item.setItemPrice(snap.child("price").getValue().toString());
                     // item.setId(snap.child("id").getValue().toString());
-                    item.setItemModel(snap.child("itemModel").getValue().toString());
-                    System.out.println("in display l116, event name = " + item.getItemName());
+                    item.setItemModel(snap.child("itemModel").getValue().toString());*/
+                    System.out.println("in display l150, event name = " + wish.getItemName());
 
 /*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
                             Integer.parseInt(snap.child("eventDate/dayOfMonth").getValue().toString()),
@@ -146,9 +157,9 @@ public class DisplayWishFragment extends Fragment {
                     );*/
 
 //                    event.setEventDate(eDate);
-                    itemArrayList.add(item);
+                    itemArrayList.add(wish);
                 }
-                main.printLogFunc("display wish frag, l128", itemArrayList.size() + "");
+                main.printLogFunc("display wish frag, l161", itemArrayList.size() + "");
                 displayWishData(itemArrayList);
 
             }
@@ -160,27 +171,11 @@ public class DisplayWishFragment extends Fragment {
         });
     }
 
-
-    public void createFloatBtn(View view) {
-        fab = new FloatingActionButton(main);
-        fab.setId(View.generateViewId());
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main.printLogFunc("display wish frag", "this is FABulous");
-                main.switchFragment(new AddGift2EventGiftlistFragment(), eventId);
-            }
-        });
-
-        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_input_add));
-
-        fab.setElevation(2);
-        fab.setFocusable(true);
-        LinearLayout lin = view.findViewById(R.id.wishListDisplayLayout);
-
-        lin.addView(fab);
-
+    public void copyLinkToClipboard(String itemID) {
+        clip = ClipData.newPlainText("itemID", itemID);
+        clipboard.setPrimaryClip(clip);
     }
+
 
 
     public void displayWishData(ArrayList data) {
@@ -193,20 +188,34 @@ public class DisplayWishFragment extends Fragment {
 
 
 
+    public void ask2ConfirmDeleteItem(String itemId) {
+
+        String str = "Are you sure?\n press confirm to delete and remove wish,\n or cancel to keep it";
+
+        System.out.println("prepare to delete Item " + itemId);
+        main.popupDialog(this, str, itemId);
+
+
+
+//        myDbRef.child("wish-list").child(itemId).removeValue();
+
+//        main.switchFragment(new editItem(), eventId);
+    }
+
     public void deleteItemFunc(String itemId) {
-        System.out.println("prepare to edit event" + eventId);
-        System.out.println("prepare to delete Item" + itemId);
+
         myDbRef.child("wish-list").child(itemId).removeValue();
 
 //        main.switchFragment(new editItem(), eventId);
     }
 
 
-    public void editItemFunc(String itemId, int position) {
+
+    public void editItemFunc(String itemId) {
 
         String path = eventId + " " + itemId;
         System.out.println("prepare to edit event" + eventId);
-        main.switchFragment(new editItem(), path);
+        main.switchFragment(new editItem(), path, true);
 
     }
 

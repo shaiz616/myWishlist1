@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.wishmelist.Activities.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,44 +21,28 @@ public class editItem extends Fragment {
 
     String itemId, eventId;
     String[] strArr;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    EditText etName, etModel, etLink, etPrice;
+
+    private Button btn;
+    MainActivity main;
 
     public editItem() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment editItem.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static editItem newInstance(String param1, String param2) {
         editItem fragment = new editItem();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -66,7 +54,27 @@ public class editItem extends Fragment {
         String path = getArguments().getString("objID");
         strArr = path.split(" ");
         eventId = strArr[0]; itemId=strArr[1];
+        main = (MainActivity) getActivity();
+
+        etName = view.findViewById(R.id.editTextNameItem);
+        etModel = view.findViewById(R.id.etItemModel);
+        etLink = view.findViewById(R.id.EditTextLinkItem);
+        etPrice = view.findViewById(R.id.etItemPrice);
+
+        btn = view.findViewById(R.id.btnConfirmEditWish);
+        String str ="Haveyou done all the changes that you wanted?\n" +
+                "press confirm to finish and go back\n" +
+                "or cancel to make other changes";
+        btn.setOnClickListener(v -> main.popupDialog(this, str, itemId ));
+
+
 
         return view;
+    }
+
+
+    public void retriveWishChanges() {
+        System.out.println("prepare to edit wish");
+
     }
 }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.EventListDisplayFragment;
 import com.example.wishmelist.R;
 
@@ -23,7 +24,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     ArrayList<EventDetails> eventlists;
 
     View view;
-//    MainActivity main;
+    MainActivity main;
     EventListDisplayFragment eventDisplay;
 
 
@@ -40,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context.getContext());
         view = inflater.inflate(R.layout.rec_view_row, parent, false);
 
-//        main = (MainActivity)  parent.getContext();
+        main = (MainActivity) context.getContext();
 
 //        eventDisplay =(EventListDisplayFragment) getContext();
         return new MyViewHolder(view);
@@ -52,11 +53,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         String eventId = eventlists.get(position).getEventID();
         holder.txtView.setText("Event name: " + eventlists.get(position).getEventName()+"\nevent ID : "+ eventId);
         holder.deleteEvent.setOnClickListener(view -> {
-            context.deleteEventFunc(eventId);
+            context.ask2confirmDeleteEvent(eventId);
         });
 
         holder.editEvent.setOnClickListener(view ->{
             System.out.println("your in MyAdapter no"+ position);
+            main.retrieveGiftListOfEvent(eventId);
             context.editEventFunc(eventId);
         });
 

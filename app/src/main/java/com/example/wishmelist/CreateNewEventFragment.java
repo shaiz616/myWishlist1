@@ -174,19 +174,19 @@ public class CreateNewEventFragment extends Fragment {
         eventName = etName.getText().toString();
         address = etAddress.getText().toString();
         if (eventName == null) {
-            popToast("wouldn't you like to have a meaningful name?" +
+            main.popToast("wouldn't you like to have a meaningful name?" +
                     "\n please enter a name for your event");
             return false;
         }
         if (eventDate == null) {
-            popToast("can't create new event without date\nplease enter event date");
+            main.popToast("can't create new event without date\nplease enter event date");
             return false;
         } else if (eventType.equals("Event type")) {
             System.out.println(eventType);
-            popToast("what are you celebrating?\nplease choose event type");
+            main.popToast("what are you celebrating?\nplease choose event type");
             return false;
         } else if (address.isEmpty() || address.length() < 5) {
-            popToast("where to send your gift?\nplease provide an address");
+            main.popToast("where to send your gift?\nplease provide an address");
             return false;
         } else {
             System.out.println("success! :) ");
@@ -200,7 +200,7 @@ public class CreateNewEventFragment extends Fragment {
     }
 
     public void setDate(View view) {
-        System.out.println("select a date");
+//        System.out.println("select a date");
         Calendar cal = Calendar.getInstance();
         System.out.println("line 144:" + cal.toString());
         int yy = cal.get(Calendar.YEAR);
@@ -267,7 +267,6 @@ public class CreateNewEventFragment extends Fragment {
 
 //        myDBRef.child(user.getUid()).child("event-list").setValue(event) ;
 
-        newEvent.printEvent();
         saveEvent2DB(newEvent);
     }
 
@@ -280,18 +279,19 @@ public class CreateNewEventFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 eventId = eventListRef.push().getKey();
-                event.setEventID(eventId);
+//                event.setEventID(eventId);
 
 //                eventListRef = fireDB.getReference("plain-user/"+uid + "/event-list");
 
 //                uid = myDBRef.child(myAuth.getCurrentUser().getUid().getValue().toString(),)
                 eventListRef.child(eventId).setValue(event);
 
+
                 System.out.println("in create new event, line 303\n" +
                         "************************ \n eventid = " + eventId);
                 dbUserRef.child("eventIDList").child(eventId).setValue(event.getEventName());
                 main.setEvent(event);
-                main.switchFragment(new AddGift2EventGiftlistFragment(), eventId);
+                main.switchFragment(new AddGift2EventGiftlistFragment(), eventId, true);
 
             }
 
@@ -302,13 +302,9 @@ public class CreateNewEventFragment extends Fragment {
             }
         });
 
-        System.out.println("problem ? : " + event.getAddress());
 
     }
 
-    public void popToast(String msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
-    }
 
 
 }

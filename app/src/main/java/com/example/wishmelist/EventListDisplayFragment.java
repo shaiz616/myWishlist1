@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.Classes.EventDetails;
+import com.example.wishmelist.Classes.GiftItem;
 import com.example.wishmelist.Classes.MyAdapter;
 //import com.example.wishmelist.Classes.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -61,12 +62,10 @@ public class EventListDisplayFragment extends Fragment {
     private ArrayList<EventDetails> userEventList;
 
 
-    FloatingActionButton fab;
     MainActivity main;
     RecyclerView recView;
     MyAdapter adapter;
     ImageButton btn;
-//    User user;
 
     ClipboardManager clipboard;
     ContentResolver myResolver;
@@ -122,9 +121,8 @@ public class EventListDisplayFragment extends Fragment {
 
 
         inputSearchListByID.setOnLongClickListener(v -> {
-            System.out.println("prepare to eat paste");
-            pasteDateFromClipBoard();
-            return false;
+            pasteEventLinkFromClipBoard();
+            return true;
         });
 
         recView = view.findViewById(R.id.recyclerWishView);
@@ -137,7 +135,8 @@ public class EventListDisplayFragment extends Fragment {
 
         if ( uMail != null) {
             isUserRegister = true;
-            createFloatBtn(view);
+            main.createFloatBtn(view, "from event display, l-140", uid, new CreateNewEventFragment());
+
 
         } else {
             isUserRegister = false;
@@ -168,15 +167,25 @@ public class EventListDisplayFragment extends Fragment {
     }
 
 
+    public void pasteEventLinkFromClipBoard() {
+        Toast.makeText(this.getActivity(), "prepare to eat paste 2", Toast.LENGTH_LONG).show();
+        clip = clipboard.getPrimaryClip();
+        ClipData.Item item = clip.getItemAt(0);
+        String pasteData = item.getText().toString();
+        inputSearchListByID.setText(pasteData);
+        Toast.makeText(this.getActivity(), "prepare to eat paste 3\n" + pasteData, Toast.LENGTH_LONG).show();
+
+    }
+
+
     public void getData(View view) {
-//        myDbRef = db.getReference("event-list");
 
-
+        // fetch data from database
         myDbRef.child("eventIDList").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                System.out.println("read data");
+
                 for (DataSnapshot snap : snapshot.getChildren()) {
 
 
@@ -185,20 +194,11 @@ public class EventListDisplayFragment extends Fragment {
                     event.setEventName(snap.getValue().toString());
                     System.out.println("eventID1 = " + event.getEventName());
 
-
-
-
-/*                    EventDetails.EventDate eDate = new EventDetails.EventDate(
-                            Integer.parseInt(snap.child("eventDate/dayOfMonth").getValue().toString()),
-                            Integer.parseInt(snap.child("eventDate/month").getValue().toString()),
-                            Integer.parseInt(snap.child("eventDate/year").getValue().toString())
-                    );*/
-
-//                    event.setEventDate(eDate);
                     userEventList.add(event);
                 }
+
+                // if fetch data was success - display the data
                 displayData(userEventList);
-                main.printLogFunc("display frag, l165", userEventList.size() + "" );
 
             }
 
@@ -209,49 +209,29 @@ public class EventListDisplayFragment extends Fragment {
         });
     }
 
-
-    public void createFloatBtn(View view) {
-        fab = new FloatingActionButton(main);
-        fab.setId(View.generateViewId());
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main.printLogFunc("display frag", "this is FABulous");
-//                main.createNewEvent(view);
-                main.switchFragment(new CreateNewEventFragment(), "");
-            }
-        });
-
-        fab.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.ic_input_add));
-
-        fab.setElevation(2);
-        fab.setFocusable(true);
-        LinearLayout lin = view.findViewById(R.id.wishListDisplayLayout);
-
-        lin.addView(fab);
-
-    }
-
-    public void pasteDateFromClipBoard() {
-        Toast.makeText(this.getActivity(), "prepare to eat paste 2", Toast.LENGTH_LONG).show();
-        clip = clipboard.getPrimaryClip();
-        ClipData.Item item = clip.getItemAt(0);
-        String pasteData = item.getText().toString();
-        Toast.makeText(this.getActivity(), "prepare to eat paste 3\n" + pasteData, Toast.LENGTH_LONG).show();
-
-    }
-
+        //      atcivate adapter to display data returned from DB
     public void displayData(ArrayList data) {
         adapter = new MyAdapter(this, data);
-//        main.printLogFunc("display frag/141\n\t\t", this.toString()  + "\n\t\tend");
         recView.setAdapter(adapter);
         recView.setLayoutManager(new LinearLayoutManager(main));
     }
+
+    public void ask2confirmDeleteEvent(String eventId) {
+
+        String str = "Are you sure?\n press confirm to delete and remove event,\n or cancel to keep it";
+
+        System.out.println("prepare to delete event " + eventId);
+        main.popupDialog(this, str, eventId);
+
+    }
+
+
     public void deleteEventFunc(String eventId) {
         myDbRef = db.getReference();
+        System.out.println("prepare to delete event " + eventId);
 
-        myDbRef.child("event-list").child(eventId).removeValue();
-        myDbRef.child("plain-user/" + uid + "/eventIDList/" + eventId).removeValue();
+//        myDbRef.child("event-list").child(eventId).removeValue();
+//        myDbRef.child("plain-user/" + uid + "/eventIDList/" + eventId).removeValue();
 
     }
 
@@ -274,18 +254,14 @@ public class EventListDisplayFragment extends Fragment {
 
         ) {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snap) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                String address = snap.child("address").getValue().toString();
-                String name = snap.child("eventName").getValue().toString();
-                EventDetails event = new EventDetails();
-                event.setEventID(eventId);
-                event.setEventName(name);
-                event.setAddress(address);
+//                GiftItem gift = snap.getValue(GiftItem.class);
+
+                EventDetails event = snapshot.getValue(EventDetails.class);
+
                 main.setEvent(event);
-
-                main.switchFragment(new Edit_EventFragment(), eventId);
-
+                main.switchFragment(new Edit_EventFragment(), eventId, true);
             }
 
             @Override
@@ -298,7 +274,7 @@ public class EventListDisplayFragment extends Fragment {
 
     public void go2WishList(String eventId) {
         System.out.println("prepare to display wishlist of event " + eventId);
-        main.switchFragment(new DisplayWishFragment(), eventId);
+        main.switchFragment(new DisplayWishFragment(), eventId, true);
     }
 
     public void SearchWishList() {
@@ -320,7 +296,7 @@ public class EventListDisplayFragment extends Fragment {
                     if (snapshot.getValue() != null && inputValue.contains(myDbRef.getKey())) {
                         System.out.println(snapshot.getValue().toString() + "in iff");
 
-                        main.switchFragment(new DisplayWishFragment(), inputValue);
+                        main.switchFragment(new DisplayWishFragment(), inputValue, true);
                         // switch to fragment of wishlist of the id
                     } else {
                         Toast.makeText(getActivity(), "Invalid Event ID",

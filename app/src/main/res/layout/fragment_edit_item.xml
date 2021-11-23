@@ -1,69 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".editItem">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
-        android:id="@+id/textViewNameItem"
+        android:id="@+id/tvItemModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="200dp"
-        android:text="Edit Item Name" />
+        android:layout_marginTop="40dp"
+        android:text="Edit Item Model"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tvItemName"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextLinkItem" />
+
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="50dp"
+        android:text="Edit Item Name"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextNameItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="item name..."
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvItemName"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemName" />
 
     <TextView
-        android:id="@+id/textViewLinkItem"
+        android:id="@+id/tvItemLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="280dp"
-        android:text="Edit Link" />
+        android:layout_marginTop="40dp"
+        android:text="Edit Link"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tvItemName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameItem" />
 
     <EditText
         android:id="@+id/EditTextLinkItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="link..."
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvItemLink"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemLink" />
 
-    <Button
-        android:id="@+id/saveItemEditBTN"
-        android:layout_width="115dp"
+    <EditText
+        android:id="@+id/etItemModel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="370dp"
-        android:text="Save Changes" />
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="item model"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvItemModel"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemModel" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="147dp"
-        android:layout_height="41dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="100dp"
-        android:text="Edit An Item "
-        android:textAlignment="center" />
+        android:id="@+id/tvItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="tvItemPrice"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tvItemName"
+        app:layout_constraintTop_toBottomOf="@+id/etItemModel" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/etItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="item price"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvItemPrice"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemPrice" />
+
+    <Button
+        android:id="@+id/btnConfirmEditWish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:text="Save Changes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemPrice" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

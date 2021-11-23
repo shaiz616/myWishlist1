@@ -13,4 +13,9 @@
     <color name="colorAccent">#ffff8800</color>
     <color name="zircon">#e0e6e4</color>
     <color name="gray1">#a6a6a6</color>
+
+    <color name="bootstrap_success">#28a745</color>
+    <color name="bootstrap_warning">#ffc107</color>
+    <color name="bootstrap_danger">#dc3545</color>
+    <color name="bootstrap_primary">#007bff</color>
 </resources>

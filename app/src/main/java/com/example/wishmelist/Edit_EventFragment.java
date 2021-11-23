@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.Classes.EventDetails;
@@ -24,13 +25,14 @@ public class Edit_EventFragment extends Fragment {
 
     String eventId, eventName, eventAddress;
     EditText etName, etAddress;
+    TextView popupTEXT;
+    Button btn, btnConfirm, btnCancel;
 
-    Button btn;
     EventDetails event;
     MainActivity main;
 
     FirebaseDatabase db;
-    DatabaseReference dbMyRef;
+    DatabaseReference dbEventRef;
 
 
     public Edit_EventFragment() {
@@ -60,47 +62,67 @@ public class Edit_EventFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_edit__event, container, false);
 
         main = (MainActivity) getActivity();
-        event = new EventDetails();
+//        event = new EventDetails();
         eventId = main.getEvent().getEventID();
 
         db = FirebaseDatabase.getInstance();
-        dbMyRef = db.getReference();
+        dbEventRef = db.getReference();
 
 
         etName = view.findViewById(R.id.editEvent_etName);
         etAddress = view.findViewById(R.id.editEvent_etAddress);
 
+        String str = "have you done all the changes you wished for the event?\n" +
+                "Select confirm to finish,\n" +
+                "Or cancel to make further changes";
         btn = view.findViewById(R.id.btnConfirmEditEvent);
-        btn.setOnClickListener(v -> retriveChanges());
+        System.out.println("edit event79 eventid = " + eventId);
+        btn.setOnClickListener(v -> {
+            main.popupDialog( this,str, eventId);
+        });
+
+        btn = view.findViewById(R.id.btnConfirm);
+//        btn.setOnClickListener(v -> )
 
         return view;
     }
 
-    public void retriveChanges(){
+    public void retriveEventChanges(String eventId){
 
-        eventName = etName.getText().toString();
-        if (eventName.isEmpty()){
-            eventName = main.getEvent().getEventName();
-        }
-        eventAddress = etAddress.getText().toString();
-        if(eventAddress.isEmpty())
-            eventAddress = main.getEvent().getAddress();
-
+        event = main.getEvent();
+        System.out.println("event id = " +eventId);
+        String temp = etName.getText().toString();
+        eventName = (temp.isEmpty()) ? event.getEventName() : temp;
         event.setEventName(eventName);
+
+        temp = etAddress.getText().toString();
+        eventAddress = temp.isEmpty() ? main.getEvent().getAddress() : temp;
         event.setAddress(eventAddress);
-        event.setEventID(main.getEvent().getEventID());
-        event.setEventDate(main.getEvent().getEventDate());
-        event.setEventType(main.getEvent().getEventType());
+
+//        event = new EventDetails(eventId, eventName);
+//        event.setEventName(eventName);
+//        event.setAddress(eventAddress);
+//        event.setEventID(main.getEvent().getEventID());
+//        event.setEventDate(main.getEvent().getEventDate());
+//        event.setEventType(main.getEvent().getEventType());
         main.setEvent(event);
 
         saveChanges2DB(event);
+        main.popToast("prepare to edit event 107");
 
     }
+
 
     public void saveChanges2DB(EventDetails event) {
 
-        dbMyRef.child( "event-list/"+ event.getEventID()).setValue(event);
-        dbMyRef.child("plain-user/" + main.getUid() + "/eventIDList/" + event.getEventID()).setValue(event.getEventName());
+        dbEventRef.child("plain-user/" + main.getUid() + "/eventIDList/" + event.getEventID()).setValue(event.getEventName());
+        dbEventRef.child( "event-list/"+ event.getEventID() + "/address").setValue(event.getAddress());
+        dbEventRef.child( "event-list/"+ event.getEventID() + "/eventName").setValue(event.getEventName());
+        dbEventRef.child( "event-list/"+ event.getEventID() + "/eventDate").setValue(event.getEventDate());
+        dbEventRef.child( "event-list/"+ event.getEventID() + "/eventType").setValue(event.getEventType());
+
 
     }
+
+
 }

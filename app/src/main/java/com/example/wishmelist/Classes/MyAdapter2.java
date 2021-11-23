@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wishmelist.Activities.MainActivity;
 import com.example.wishmelist.DisplayWishFragment;
 import com.example.wishmelist.EventListDisplayFragment;
 import com.example.wishmelist.R;
@@ -24,7 +26,7 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 
     View view;
 //    MainActivity main;
-    EventListDisplayFragment eventDisplay;
+//    EventListDisplayFragment eventDisplay;
 
     public MyAdapter2(DisplayWishFragment contx, ArrayList<GiftItem> giftItemArrayList) {
         this.context = contx;
@@ -46,15 +48,22 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 
 
     public void onBindViewHolder(@NonNull MyAdapter2.MyViewHolder2 holder, int position) {
-//        holder.txtView.setText(value[position]);
+        String itemID = giftItemArrayList.get(position).getId();
+        boolean permission = MainActivity.isUserRegister;
         holder.txtView.setText("item name: " + giftItemArrayList.get(position).getItemName() + "\nitem model : " + giftItemArrayList.get(position).getItemModel());
-        holder.deleteItem.setOnClickListener(view -> {
-            context.deleteItemFunc(giftItemArrayList.get(position).getId());
-        });
-        holder.editItem.setOnClickListener(view -> {
-            System.out.println("your in MyAdapter no" + position);
-            context.editItemFunc(giftItemArrayList.get(position).getItemId(), position);
-        });
+
+        holder.shareIV.setOnClickListener(view -> context.copyLinkToClipboard(itemID));
+
+        if(!permission) {
+            holder.deleteItem.setVisibility(View.GONE);
+            holder.editItem.setVisibility(view.GONE);
+        } else {
+
+            holder.deleteItem.setOnClickListener(view -> context.ask2ConfirmDeleteItem(itemID));
+
+            holder.editItem.setOnClickListener(view -> context.editItemFunc(itemID));
+
+        }
 
     }
 
@@ -65,7 +74,8 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
 
     public class MyViewHolder2 extends RecyclerView.ViewHolder {
         TextView txtView;
-        ImageView deleteItem, editItem;
+        CardView cardView;
+        ImageView deleteItem, editItem, shareIV;
         EventListDisplayFragment eventDisplay;
 
         public MyViewHolder2(@NonNull View itemView/*, Fragment frag*/) {
@@ -73,6 +83,8 @@ public class MyAdapter2 extends RecyclerView.Adapter<MyAdapter2.MyViewHolder2>{
             txtView = itemView.findViewById(R.id.eventNameField);
             deleteItem = view.findViewById(R.id.deleteBTN);
             editItem = view.findViewById(R.id.editBTN);
+            shareIV = view.findViewById(R.id.imgBTNshare);
+            cardView = view.findViewById(R.id.recycleCardView);
 //            eventDisplay = (EventListDisplayFragment) frag;
         }
     }

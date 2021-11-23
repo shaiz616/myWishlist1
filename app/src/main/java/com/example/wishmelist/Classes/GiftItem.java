@@ -25,20 +25,22 @@ public class GiftItem {
     public String getItemName() {
         return itemName;
     }
-
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
 
+
     public String getLink() {
         return link;
     }
-    public String getId(){return ItemId;};
-    public void setId(String ItemId){this.ItemId= ItemId;};
-
     public void setLink(String link) {
         this.link = link;
     }
+
+
+    public String getId(){return ItemId;};
+    public void setId(String ItemId){this.ItemId= ItemId;};
+
 
     public String getItemModel() {
         return itemModel;
@@ -56,11 +58,5 @@ public class GiftItem {
         this.itemPrice = itemPrice;
     }
 
-    public String getItemId() {
-        return ItemId;
-    }
 
-    public void setItemId(String itemId) {
-        ItemId = itemId;
-    }
 }
