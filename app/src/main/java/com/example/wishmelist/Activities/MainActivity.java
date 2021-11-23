@@ -23,10 +23,12 @@ import android.widget.Toast;
 import com.example.wishmelist.AddGift2EventGiftlistFragment;
 import com.example.wishmelist.Classes.EventDetails;
 import com.example.wishmelist.Classes.GiftItem;
+import com.example.wishmelist.Classes.User;
 import com.example.wishmelist.CreateNewEventFragment;
 import com.example.wishmelist.DisplayWishFragment;
 import com.example.wishmelist.Edit_EventFragment;
 import com.example.wishmelist.EventListDisplayFragment;
+import com.example.wishmelist.FragmentEditUserProfile;
 import com.example.wishmelist.R;
 import com.example.wishmelist.editItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private static String uid, uMail;
     public static boolean isUserRegister;
 
-
+    public User user;
+    Button btn;
     private EventDetails event;
 
     private LandingActivity landing ;
@@ -65,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
         uid = getIntent().getStringExtra("uid");
 
         landing = new LandingActivity();
+        user = LandingActivity.getUser();
 
+        System.out.println("userid = " + user.getName());
         db = FirebaseDatabase.getInstance();
         dbUserRef = db.getReference("plain-user/" + uid );
         dbEventRef = db.getReference("event-list");
@@ -77,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null).commit();
 
 
+        btn = findViewById(R.id.btnEditProfile);
         /**
          * check if user is register or anonymous
          *      (if user is anonymous then getEmail() will return null)
@@ -85,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
         if ( uMail != null) {
             isUserRegister = true;
+            btn.setOnClickListener(v -> switchFragment(new FragmentEditUserProfile(), uid, true));
         } else {
             isUserRegister = false;
+            btn.setVisibility(View.GONE);
         }
 
 
@@ -126,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void popupDialog(Fragment origin, String message,String objID ){
+
+    public void popupDialog(Fragment origin, String message, String objID ){
 
         System.out.println(origin.toString() + " /777\n " + message);
 

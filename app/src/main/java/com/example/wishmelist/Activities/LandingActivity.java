@@ -65,7 +65,6 @@ public class LandingActivity extends AppCompatActivity {
             upw = sharedPref.getString("pwKey", null);
             System.out.println("in landing, l 48, mail = " + umail);
             setUid(userId);
-            doSomething("in landing/oncreate l-50\n userkey = " + umail);
 
             MoveToMainScreen();
 //            keepLoginData(umail, upw, userId);
@@ -79,18 +78,9 @@ public class LandingActivity extends AppCompatActivity {
 
 
     }
-    /*
-    public static void setUser(User u) {
-        user = u;
-    }*/
 
 
-    /*
-    TODO :  upon anonymous login send a signal to main
-            to activate the right response
-            (for now display "anonymous" as username)
-            comment instead of dani
-     */
+
     public void MoveToMainScreen() {
         String username = "anonimus";
         /*if(user == null) {
@@ -132,9 +122,7 @@ public class LandingActivity extends AppCompatActivity {
     public String getUid() { return this.uid; }
 
 
-    public void setUser(User u) {
-        this.user = u;
-    }
+    public void setUser(User u) { this.user = u; }
 
     public static User getUser() {
         return user;

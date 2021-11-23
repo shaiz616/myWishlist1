@@ -52,6 +52,7 @@ public class Edit_EventFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            eventId = getArguments().getString("objID");
         }
     }
 
@@ -120,7 +121,6 @@ public class Edit_EventFragment extends Fragment {
         dbEventRef.child( "event-list/"+ event.getEventID() + "/eventName").setValue(event.getEventName());
         dbEventRef.child( "event-list/"+ event.getEventID() + "/eventDate").setValue(event.getEventDate());
         dbEventRef.child( "event-list/"+ event.getEventID() + "/eventType").setValue(event.getEventType());
-
 
     }
 

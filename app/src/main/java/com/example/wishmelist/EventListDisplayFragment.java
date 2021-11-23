@@ -228,10 +228,10 @@ public class EventListDisplayFragment extends Fragment {
 
     public void deleteEventFunc(String eventId) {
         myDbRef = db.getReference();
-        System.out.println("prepare to delete event " + eventId);
+        System.out.println("prepare to delete event " + eventId + ",\nuid = " + uid);
 
-//        myDbRef.child("event-list").child(eventId).removeValue();
-//        myDbRef.child("plain-user/" + uid + "/eventIDList/" + eventId).removeValue();
+        myDbRef.child("event-list").child(eventId).removeValue();
+        myDbRef.child("plain-user/" + uid + "/eventIDList/" + eventId).removeValue();
 
     }
 
@@ -259,6 +259,7 @@ public class EventListDisplayFragment extends Fragment {
 //                GiftItem gift = snap.getValue(GiftItem.class);
 
                 EventDetails event = snapshot.getValue(EventDetails.class);
+                event.setEventID(snapshot.getKey());
 
                 main.setEvent(event);
                 main.switchFragment(new Edit_EventFragment(), eventId, true);

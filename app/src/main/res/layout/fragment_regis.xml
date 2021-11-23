@@ -19,9 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="20"
-        android:hint="name"
+        android:hint="user name"
         android:inputType="textPersonName"
-        android:text="dani"
         android:textSize="24sp" />
 
     <EditText
@@ -31,7 +30,6 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:text="dani@gmail.com"
         android:textSize="24sp" />
 
     <EditText
@@ -41,13 +39,13 @@
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
-        android:text="dan1q1w2"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/btnReset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
         android:onClick="resetFields"
         android:text="Reset" />
 
@@ -55,6 +53,8 @@
         android:id="@+id/btnConfirmRegis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="25dp"
         android:text="confirm and continue" />
 
 </LinearLayout>

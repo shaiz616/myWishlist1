@@ -202,7 +202,7 @@ public class RegisFragment extends Fragment {
         ptrn = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=\\S+$)";
 //        flag = validation(pw, 6, ptrn);
 
-        if (!validation(pw, 3, ptrn)) {
+        if (!validation(pw, 6, ptrn)) {
             System.out.println( pw + " is not good @line 204 ");
             return false;
         }

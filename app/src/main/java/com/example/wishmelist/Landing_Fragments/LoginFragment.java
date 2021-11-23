@@ -197,7 +197,6 @@ public class LoginFragment extends Fragment {
                         FirebaseUser user = myAuth.getCurrentUser();
 
                         String uid = user.getUid();
-                        User u = new User();
                         landing.setUid(uid);
 
                         FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
@@ -205,7 +204,10 @@ public class LoginFragment extends Fragment {
                         myDBRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                u.setName(snapshot.child("name").getValue().toString());
+                                User u = snapshot.getValue(User.class);
+//                                System.out.println("user name = " + u.getName());
+                                landing.setUser(u);
+//                                u.setName(snapshot.child("name").getValue().toString());
                                 System.out.println("l185\t\t" + pw);
 //                                landing.setUser(u);
                                 landing.keepLoginData(email, pw, uid);
@@ -219,7 +221,6 @@ public class LoginFragment extends Fragment {
 
                             }
                         });
-                        System.out.println(u.getName());
                         /*myDBRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
